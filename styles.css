@@ -1,0 +1,832 @@
+/* ============================================
+   atjernstrom.com — recreated codebase
+   ============================================ */
+
+:root {
+  --cream: #feffe2;
+  --white: #ffffff;
+  --off-white: #f7f4f1;
+  --ink: #1c1c1c;
+  --black: #000000;
+  --paper: #fafafa;
+  --line: rgba(28, 28, 28, 0.25);
+
+  --font: "Urbanist", sans-serif;
+
+  --nav-h: 88px;
+  --container: 1200px;
+  --pad: clamp(24px, 5vw, 64px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding: 0 var(--pad);
+  background: var(--cream);
+  transition: transform 0.3s ease;
+}
+
+.nav--hidden {
+  transform: translateY(-100%);
+}
+
+.nav__logo {
+  font-size: 2.125rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.nav__links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.145rem;
+}
+
+.nav__links a {
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.nav__links a:hover,
+.nav__links a[aria-current="page"] {
+  border-bottom-color: currentColor;
+}
+
+.nav__toggle {
+  display: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.nav__toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  margin: 5px 0;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  background: var(--cream);
+  padding: 96px var(--pad) 120px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 5.125rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 auto 24px;
+  max-width: 900px;
+}
+
+.hero p {
+  font-size: 2.625rem;
+  line-height: 1.3;
+  max-width: 640px;
+  margin: 0 auto 40px;
+  color: var(--ink);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  color: var(--paper);
+  border: none;
+  border-radius: 300px;
+  padding: 20px 32px;
+  font-family: var(--font);
+  font-size: 1.145rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* ---------- Portfolio ---------- */
+
+.portfolio {
+  background: var(--white);
+  padding: 96px var(--pad);
+}
+
+.portfolio h2 {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.49rem);
+  font-weight: 400;
+  margin: 0 0 56px;
+}
+
+.portfolio__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.portfolio__card {
+  display: block;
+  border-radius: 32px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--off-white);
+}
+
+.portfolio__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.portfolio__card:hover img {
+  transform: scale(1.03);
+}
+
+.portfolio__card--wide {
+  grid-column: 1 / -1;
+}
+
+/* ---------- About page ---------- */
+
+.about {
+  padding: 80px var(--pad) 120px;
+  background: var(--cream);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.about h1 {
+  font-size: clamp(2rem, 4vw, 2.49rem);
+  font-weight: 400;
+  margin: 0 0 32px;
+}
+
+.about p {
+  font-size: 1.58rem;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.about__photo {
+  border-radius: 24px;
+  overflow: hidden;
+  filter: grayscale(1);
+}
+
+.about__photo img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Contact / footer marquee ---------- */
+
+.contact {
+  background: var(--cream);
+  padding: 96px 0 64px;
+  overflow: hidden;
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 64px;
+}
+
+.marquee__track {
+  display: inline-flex;
+  animation: scroll 22s linear infinite;
+}
+
+.marquee__track span {
+  font-size: clamp(3rem, 10vw, 7.04rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  padding-right: 48px;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.contact__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 0 var(--pad);
+  flex-wrap: wrap;
+}
+
+.contact__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: calc(50vw - var(--pad));
+  flex: none;
+}
+
+.contact__list li {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+  font-size: 1.58rem;
+}
+
+.contact__list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.contact__list a {
+  transition: opacity 0.2s ease;
+}
+
+.contact__list a:hover {
+  opacity: 0.6;
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--black);
+  color: var(--paper);
+  flex-shrink: 0;
+}
+
+.social svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* ---------- Contact page hero variant ---------- */
+
+.contact-page .contact {
+  padding-top: 64px;
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--cream);
+  padding: 24px var(--pad) 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(28, 28, 28, 0.6);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .nav__links {
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    background: var(--cream);
+    flex-direction: column;
+    padding: 32px var(--pad);
+    gap: 24px;
+    font-size: 1.5rem;
+    transform: translateY(-110%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav__links.is-open {
+    transform: translateY(0);
+  }
+
+  .nav__toggle {
+    display: block;
+  }
+
+  .portfolio__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about__photo {
+    order: -1;
+  }
+
+  .contact__details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact__list {
+    width: 100%;
+  }
+
+  .social {
+    align-self: center;
+  }
+}
+
+/* ============================================
+   Case study pages
+   ============================================ */
+
+/* --- Case index hero (Tele2 / Fenix outdoor) --- */
+
+.case-index-hero {
+  padding: 96px var(--pad) 72px;
+  text-align: center;
+  color: var(--paper);
+}
+
+.case-index-hero--dark {
+  background: #000000;
+}
+
+.case-index-hero--teal {
+  background: #3d6e6c;
+}
+
+.case-index-hero img.case-logo {
+  max-width: 260px;
+  margin: 0 auto 48px;
+}
+
+.meta-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 56px;
+  margin-top: 16px;
+}
+
+.meta-grid__item {
+  min-width: 120px;
+}
+
+.meta-grid__label {
+  display: block;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 8px;
+}
+
+.meta-grid__value {
+  font-size: 1.75rem;
+}
+
+.meta-grid__value + .meta-grid__value {
+  margin-top: 4px;
+}
+
+.meta-grid__value a,
+.meta-grid a.meta-grid__value {
+  border-bottom: 1px solid currentColor;
+}
+
+/* --- Sub-case grid (list of cases inside Tele2 / Fenix) --- */
+
+.subcases {
+  padding: 88px var(--pad) 112px;
+  background: var(--white);
+  text-align: center;
+}
+
+.subcases h2 {
+  font-size: clamp(2rem, 4vw, 2.49rem);
+  font-weight: 400;
+  margin: 0 0 56px;
+}
+
+.subcases__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  text-align: left;
+}
+
+.subcase-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subcase-card__image {
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  background: #0b0b0b;
+  overflow: hidden;
+}
+
+.subcase-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.subcase-card:hover .subcase-card__image img {
+  transform: scale(1.03);
+}
+
+.subcase-card__title {
+  font-size: 1.33rem;
+}
+
+/* --- Case detail article (hero + alternating sections) --- */
+
+.case-hero {
+  background: var(--paper);
+  padding: 88px var(--pad) 72px;
+}
+
+.case-hero__eyebrow {
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #7c7c7c;
+  margin: 0 0 16px;
+}
+
+.case-hero h1 {
+  font-size: 5.125rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  max-width: 900px;
+}
+
+.case-hero--compact h1 {
+  font-size: 3.125rem;
+}
+
+.case-hero__lede {
+  font-size: 1.375rem;
+  line-height: 1.4;
+  max-width: 67%;
+  margin: 0;
+}
+
+.case-hero .meta-grid {
+  justify-content: flex-start;
+  margin-top: 40px;
+}
+
+.case-hero .meta-grid__label {
+  color: rgba(28, 28, 28, 0.5);
+  opacity: 1;
+}
+
+.case-image-full {
+  width: 100%;
+  line-height: 0;
+}
+
+.case-image-full img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.case-section {
+  padding: 72px var(--pad);
+}
+
+.case-section--alt {
+  background: #f5f5f4;
+}
+
+.case-section__inner {
+  max-width: none;
+  margin: 0;
+}
+
+/* Standalone text (no left-hand label) still doesn't span the full width —
+   it's capped to the same width as the split layout's content column */
+.case-section__inner > h2,
+.case-section__inner > h3,
+.case-section__inner > p,
+.case-section__inner > ul {
+  max-width: 67%;
+}
+
+.case-section h2 {
+  text-align: left;
+  font-size: 3.125rem;
+  font-weight: 400;
+  margin: 0 0 40px;
+}
+
+.case-section h3 {
+  font-size: 2.625rem;
+  font-weight: 400;
+  margin: 32px 0 12px;
+}
+
+.case-section p {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+/* On the shorter case pages (title already at H2 scale), the top-level
+   section heading shifts down one level to match the original hierarchy */
+.case-hero--compact ~ .case-section h2 {
+  font-size: 2.625rem;
+}
+
+.case-section h4 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin: 24px 0 8px;
+}
+
+/* Two-column "split" layout: narrow label column + wider indented content
+   column, matching the original site's grid pattern for labeled sub-items */
+.case-split {
+  display: grid;
+  grid-template-columns: minmax(130px, 25%) 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+  margin-top: 32px;
+}
+
+.case-split > .case-split__label {
+  margin: 0;
+  max-width: none;
+  font-size: 1.75rem;
+}
+
+.case-split__content {
+  min-width: 0;
+}
+
+.case-split__content > p {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.case-split__content > p:last-child {
+  margin-bottom: 0;
+}
+
+.case-split__content > img {
+  width: 100%;
+  border-radius: 20px;
+  margin: 0 0 20px;
+}
+
+.case-split__content > img:last-child {
+  margin-bottom: 0;
+}
+
+/* Tele2 Design system has repeated sub-project blocks, each with its own
+   full-size H2 title (unlike the single-title compact case pages) */
+.case-hero--compact ~ .case-section h2.case-section__block-title {
+  font-size: 3.125rem;
+}
+
+.case-section p:last-child {
+  margin-bottom: 0;
+}
+
+.case-section img {
+  width: 100%;
+  border-radius: 20px;
+  margin: 24px 0;
+}
+
+.case-section .meta-grid {
+  justify-content: center;
+  margin: 40px 0 0;
+}
+
+.case-section .meta-grid__label {
+  color: rgba(28, 28, 28, 0.5);
+  opacity: 1;
+}
+
+.insight-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: insight;
+}
+
+.insight-list li {
+  counter-increment: insight;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  font-size: 1.58rem;
+}
+
+.insight-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.insight-list li::before {
+  content: counter(insight) ") ";
+  font-weight: 600;
+}
+
+.bullet-list {
+  list-style: disc;
+  margin: 0 0 20px;
+  padding-left: 1.3em;
+}
+
+.bullet-list li {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.bullet-list li:last-child {
+  margin-bottom: 0;
+}
+
+.case-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px var(--pad);
+  background: var(--white);
+  font-size: 1.145rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--line);
+}
+
+.case-nav a {
+  border-bottom: 1px solid transparent;
+}
+
+.case-nav a:hover {
+  border-bottom-color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .subcases__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-grid {
+    gap: 32px;
+  }
+
+  .case-split {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .case-section__inner > h2,
+  .case-section__inner > h3,
+  .case-section__inner > p,
+  .case-section__inner > ul,
+  .case-hero__lede {
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 2.75rem;
+  }
+
+  .hero p {
+    font-size: 1.6rem;
+  }
+
+  .nav__logo {
+    font-size: 1.4rem;
+  }
+
+  .case-hero h1 {
+    font-size: 2.75rem;
+  }
+
+  .case-hero--compact h1 {
+    font-size: 1.9rem;
+  }
+
+  .case-hero__lede {
+    font-size: 1.05rem;
+  }
+
+  .case-hero__eyebrow,
+  .meta-grid__label {
+    font-size: 0.95rem;
+  }
+
+  .meta-grid__value {
+    font-size: 1.3rem;
+  }
+
+  .case-section h2,
+  .case-hero--compact ~ .case-section h2,
+  .case-hero--compact ~ .case-section h2.case-section__block-title {
+    font-size: 1.9rem;
+  }
+
+  .case-section h3 {
+    font-size: 1.6rem;
+  }
+
+  .case-section h4,
+  .case-split > .case-split__label {
+    font-size: 1.3rem;
+  }
+
+  .case-section p,
+  .case-split__content > p {
+    font-size: 1.05rem;
+  }
+}
+
+/* ---------- Accessibility ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}

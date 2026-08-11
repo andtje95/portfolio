@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Naturkompaniet/Pagination — atjernstrom.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav" style="background:#fafafa;">
+  <a href="index.html" class="nav__logo">atjernstrom.com</a>
+  <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav__links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="case-hero case-hero--compact">
+  <p class="case-hero__eyebrow">Pagination</p>
+  <h1>Redesigning pagination for clarity and accessibility</h1>
+  <div class="meta-grid">
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Company</span>
+      <span class="meta-grid__value">Naturkompaniet</span>
+    </div>
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Timeframe</span>
+      <span class="meta-grid__value">1 week</span>
+    </div>
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">My role</span>
+      <span class="meta-grid__value">UX/UI Designer</span>
+    </div>
+  </div>
+</header>
+
+<div class="case-image-full">
+  <img src="images/naturkompaniet-pagination-card.png" alt="Pagination overview" />
+</div>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <h2>Project description</h2>
+    <p>The pagination on Naturkompaniet's e-commerce site had an inverted logic — the active page looked clickable while the actual links looked like plain text. This risked both confusing users and creating frustrating dead-end clicks. Click targets were also too small, raising accessibility concerns.</p>
+    <p>I was tasked with redesigning the pagination to fix the interaction logic and improve accessibility.</p>
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <h2>The design process</h2>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Research</h3>
+      <div class="case-split__content">
+        <p>Before jumping into design, I evaluated whether pagination was the right pattern at all. Alternatives like infinite scroll and load more were considered, but given the size of the product catalogue, pagination proved the better fit. Click-rate data from Clarity also confirmed that the arrow icons were frequently used, indicating the pattern worked. The implementation was the problem.</p>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Design</h3>
+      <div class="case-split__content">
+        <p>Redesigned and documented the pagination component in Figma, ensuring accessibility throughout.</p>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Implementation</h3>
+      <div class="case-split__content">
+        <p>The finalised design and requirements were documented and handed off to the development team via Jira.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <h2>Solution</h2>
+    <p>The solution focused on correcting the interaction logic, improving accessibility, and giving users a clearer sense of their position within the page range.</p>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Corrected interaction logic</h3>
+      <div class="case-split__content">
+        <p>The active page indicator was restyled to reflect current state, while the navigable page numbers were given clear link styling to communicate clickability.</p>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Enlarged click-targets</h3>
+      <div class="case-split__content">
+        <p>The click targets were enlarged to meet accessibility standards (WCAG 2.2 AA), making the component easier to interact with for all users.</p>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Bold active page indicator</h3>
+      <div class="case-split__content">
+        <p>The active page indicator was made bold, giving users a clearer sense of their current position within the page range.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-image-full" style="margin-top: 32px;">
+    <img src="images/naturkompaniet-pagination-before-after.png" alt="Before and after pagination redesign" />
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <h2>Result</h2>
+    <p>The redesigned pagination was successfully implemented on Naturkompaniet's e-commerce site. While the arrow icons remained the primary navigation method, the updated component showed a modest improvement in page number interactions — suggesting that the clearer styling and larger click targets made the pattern more discoverable and easier to use.</p>
+  </div>
+</section>
+
+<nav class="case-nav">
+  <a href="naturkompaniet-comparison.html">← Previous case</a>
+  <a href="fenixoutdoor.html">Back to Fenix outdoor</a>
+</nav>
+
+<section class="contact" id="contact">
+  <div class="marquee">
+    <div class="marquee__track">
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+    </div>
+  </div>
+  <div class="contact__details">
+    <ul class="contact__list">
+      <li><a href="mailto:andreas.tjernstrom@hotmail.com">andreas.tjernstrom@hotmail.com</a></li>
+      <li><a href="tel:+46700028152">+46 70 002 81 52</a></li>
+    </ul>
+    <a class="social" href="https://www.linkedin.com/in/andreastjernstrom" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  © <span id="year"></span> Andreas Tjernström
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

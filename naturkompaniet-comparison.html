@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Naturkompaniet/Comparison — atjernstrom.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav" style="background:#fafafa;">
+  <a href="index.html" class="nav__logo">atjernstrom.com</a>
+  <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav__links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="case-hero case-hero--compact">
+  <p class="case-hero__eyebrow">Comparison feature</p>
+  <h1>Helping users make confident purchase decisions</h1>
+  <div class="meta-grid">
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Company</span>
+      <span class="meta-grid__value">Naturkompaniet</span>
+    </div>
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Timeframe</span>
+      <span class="meta-grid__value">2 weeks</span>
+    </div>
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">My role</span>
+      <span class="meta-grid__value">UX/UI Designer</span>
+    </div>
+  </div>
+</header>
+
+<div class="case-image-full">
+  <img src="images/naturkompaniet-comparison-card.png" alt="Comparison feature overview" />
+</div>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <h2>Project description</h2>
+    <p>I was tasked with designing a comparison feature for Naturkompaniet's e-commerce platform, enabling customers to easily compare similar products. At the time, no such feature existed, which made it difficult for users to evaluate alternatives and make confident purchase decisions.</p>
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <h2>Challenges</h2>
+    <p>Users struggled to choose between similar products, which increased the risk of abandoned purchases. Existing surveys and usability tests highlighted this as a recurring issue, particularly on the product listing page where users had limited support for efficient comparison.</p>
+    <p>Another challenge was the limited scope for conducting new user research. To address this, I relied on existing insights and complemented them with desktop research, benchmarking how other e-commerce platforms solve similar problems.</p>
+  </div>
+</section>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <h2>The design process</h2>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Research</h3>
+      <div class="case-split__content">
+        <p>I conducted desktop research and synthesized the findings with existing insights from previous studies. The key insights that informed the design were:</p>
+        <ul class="bullet-list">
+          <li>Users want to quickly compare similar products without navigating between multiple pages.</li>
+          <li>Highlighting the most relevant attributes supports faster decision-making.</li>
+          <li>Displaying too many attributes at once can overwhelm users.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Design &amp; Prototyping</h3>
+      <div class="case-split__content">
+        <p>Developed intuitive, interactive wireframes in Figma, iteratively refining them based on user feedback. Utilized existing UI patterns from the design system and designed new components as needed, ensuring accessibility throughout.</p>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Testing &amp; Optimization</h3>
+      <div class="case-split__content">
+        <p>Conducted five semi-structured user observations to evaluate the design, and iteratively refined it based on usability insights and user satisfaction.</p>
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Implementation</h3>
+      <div class="case-split__content">
+        <p>The solution was documented in Figma and handed over to developers to support future development, validation, and implementation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <h2>Solution</h2>
+    <p>The solution focused on helping users compare similar products more efficiently on the product listing page, while keeping cognitive load low and staying consistent with existing UI patterns.</p>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Expanded product cards</h3>
+      <div class="case-split__content">
+        <p>A toggle was added on the product listing page to activate a comparison mode, expanding product cards to reveal feature tags that highlight key differences between products, and a checkbox for selecting items for comparison. This way users who aren't comparing are not overwhelmed.</p>
+        <img src="images/naturkompaniet-comparison-toggle.png" alt="Comparison mode toggle" />
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Selection bar</h3>
+      <div class="case-split__content">
+        <p>A selection bar displays thumbnails of the chosen products, giving users a clear overview of their selection. A CTA button, supported by help text, activates once enough items are chosen and directs users to the comparison page.</p>
+        <img src="images/naturkompaniet-comparison-selection-bar.png" alt="Selection bar" />
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h3 class="case-split__label">Side-by-side comparison</h3>
+      <div class="case-split__content">
+        <p>Products are displayed side-by-side on a comparison page, with key technical details listed beneath each product to support clear, feature-by-feature comparison.</p>
+        <p>A toggle allows users to focus only on differing specifications, helping reduce cognitive load.</p>
+        <p>Commerce actions such as size selection and add to cart are available directly in the comparison view, enabling users to act on their decision without leaving the page and supporting conversion.</p>
+        <img src="images/naturkompaniet-comparison-page.png" alt="Side-by-side comparison page" />
+        <p>A sticky top bar appears when scrolling, showing product thumbnails, names, and prices. This helps users maintain context and easily associate technical details with the correct product.</p>
+        <img src="images/naturkompaniet-comparison-sticky-bar.png" alt="Sticky top bar" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <h2>Result</h2>
+    <p>The design addresses a recurring problem where users struggled to compare similar products, leading to abandoned purchases. By introducing feature tags in the product listing view and a dedicated comparison page, the solution gives users better support throughout their decision-making process — expected to reduce drop-off at the product listing page and a meaningful step toward solving a clearly validated problem.</p>
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <h2>Next step</h2>
+    <p>Although implementation fell outside the scope of my internship, the solution was documented and handed off for further development. The implementation was planned to follow an MVP methodology, starting with the feature tags in the expanded product cards. This would allow for early validation with real user data before scaling further, with each phase building on learnings from the previous one.</p>
+  </div>
+</section>
+
+<nav class="case-nav">
+  <a href="fenixoutdoor.html">← Back to Fenix outdoor</a>
+  <a href="naturkompaniet-pagination.html">Next case →</a>
+</nav>
+
+<section class="contact" id="contact">
+  <div class="marquee">
+    <div class="marquee__track">
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+    </div>
+  </div>
+  <div class="contact__details">
+    <ul class="contact__list">
+      <li><a href="mailto:andreas.tjernstrom@hotmail.com">andreas.tjernstrom@hotmail.com</a></li>
+      <li><a href="tel:+46700028152">+46 70 002 81 52</a></li>
+    </ul>
+    <a class="social" href="https://www.linkedin.com/in/andreastjernstrom" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  © <span id="year"></span> Andreas Tjernström
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

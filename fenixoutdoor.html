@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fenix outdoor — atjernstrom.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav" style="background:#3d6e6c;color:#fafafa;">
+  <a href="index.html" class="nav__logo">atjernstrom.com</a>
+  <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span style="background:#fafafa;"></span><span style="background:#fafafa;"></span>
+  </button>
+  <ul class="nav__links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="case-index-hero case-index-hero--teal">
+  <img class="case-logo" src="images/fenix-logo.png" alt="Fenix Outdoor International AG logo" />
+  <div class="meta-grid">
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Company</span>
+      <span class="meta-grid__value"><a href="https://www.fenixoutdoor.com/" target="_blank" rel="noopener">Fenix outdoor</a></span>
+    </div>
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Project type</span>
+      <span class="meta-grid__value">Internship</span>
+    </div>
+    <div class="meta-grid__item">
+      <span class="meta-grid__label">Period</span>
+      <span class="meta-grid__value">Autumn 2025</span>
+    </div>
+  </div>
+</header>
+
+<section class="subcases">
+  <h2>Cases</h2>
+  <div class="subcases__grid">
+    <a class="subcase-card" href="naturkompaniet-comparison.html">
+      <div class="subcase-card__image">
+        <img src="images/naturkompaniet-comparison-card.png" alt="Naturkompaniet — Comparison feature" />
+      </div>
+      <div class="subcase-card__title">Naturkompaniet - Comparison feature</div>
+    </a>
+    <a class="subcase-card" href="naturkompaniet-pagination.html">
+      <div class="subcase-card__image">
+        <img src="images/naturkompaniet-pagination-card.png" alt="Naturkompaniet — Pagination" />
+      </div>
+      <div class="subcase-card__title">Naturkompaniet - Pagination</div>
+    </a>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="marquee">
+    <div class="marquee__track">
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+    </div>
+  </div>
+  <div class="contact__details">
+    <ul class="contact__list">
+      <li><a href="mailto:andreas.tjernstrom@hotmail.com">andreas.tjernstrom@hotmail.com</a></li>
+      <li><a href="tel:+46700028152">+46 70 002 81 52</a></li>
+    </ul>
+    <a class="social" href="https://www.linkedin.com/in/andreastjernstrom" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  © <span id="year"></span> Andreas Tjernström
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

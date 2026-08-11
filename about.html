@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — atjernstrom.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__logo">atjernstrom.com</a>
+  <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav__links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html" aria-current="page">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="about">
+  <div class="container about__grid">
+    <div>
+      <h1>About</h1>
+      <p>My name is Andreas and I'm a UX Designer based in Stockholm. I'm in my final year at Stockholm Technical Institute and will graduate in spring 2026.</p>
+      <p>I've always been drawn to design and the impact it can have—whether sparking an emotion or solving a real problem. What drew me to UX is the combination of problem-solving and creativity: transforming insights into visually appealing solutions that truly make a difference for the user. I'm also motivated by inclusion and the belief that everyone should be able to experience digital solutions that are both accessible and meaningful. Curious and creative, these are qualities that guide both my work and the way I move through life.</p>
+      <p>Originally from Örnsköldsvik, I've spent the last five years in Stockholm. Outside of design, you'll usually find me out in nature, hitting the trails for a run, trying new restaurants, or planning my next trip.</p>
+    </div>
+    <div class="about__photo">
+      <img src="images/andreas-portrait.jpg" alt="Andreas Tjernström" />
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="marquee">
+    <div class="marquee__track">
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+    </div>
+  </div>
+  <div class="contact__details">
+    <ul class="contact__list">
+      <li><a href="mailto:andreas.tjernstrom@hotmail.com">andreas.tjernstrom@hotmail.com</a></li>
+      <li><a href="tel:+46700028152">+46 70 002 81 52</a></li>
+    </ul>
+    <a class="social" href="https://www.linkedin.com/in/andreastjernstrom" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  © <span id="year"></span> Andreas Tjernström
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

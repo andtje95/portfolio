@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tele2/Designsystem — atjernstrom.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav" style="background:#fafafa;">
+  <a href="index.html" class="nav__logo">atjernstrom.com</a>
+  <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+  <ul class="nav__links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="case-hero case-hero--compact">
+  <h1>Tele2 Design system</h1>
+  <p class="case-hero__lede">At Tele2, I worked with a white label design system — a shared component library that multiple brands within Tele2 can build on top of, each applying their own visual identity. Getting familiar with this approach and how it works in practice was a key part of my contribution.</p>
+</header>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <p class="case-hero__eyebrow" style="text-align:center;">Tele2 Design system</p>
+    <h2 class="case-section__block-title">Building of tooltip component</h2>
+  </div>
+
+  <div class="case-image-full" style="margin: 32px 0;">
+    <img src="images/tele2-designsystem-tooltip-1.png" alt="Tooltip component" />
+  </div>
+
+  <div class="case-section__inner">
+    <h3>Project description</h3>
+    <p>A tooltip shows contextual information when a user hovers over or focuses on an element, helping users understand functionality without cluttering the interface. I was tasked with building the component from scratch in Figma, documenting usage guidelines, and ensuring it met accessibility requirements.</p>
+
+    <div class="case-split">
+      <h4 class="case-split__label">Implementation</h4>
+      <div class="case-split__content">
+        <p>The component was built following the white label structure, meaning it could easily be translated across Tele2's different brands and themes through the token system. It was added directly to the active design system, ready to be used across products.</p>
+        <img src="images/tele2-designsystem-tooltip-2.png" alt="Tooltip variants across brands" />
+      </div>
+    </div>
+
+    <div class="case-split">
+      <h4 class="case-split__label">Documentation</h4>
+      <div class="case-split__content">
+        <p>Documentation covered both usage guidelines and accessibility compliance — including sufficient contrast ratios and screen reader order — ensuring it could be handed off and implemented consistently without ambiguity.</p>
+        <img src="images/tele2-designsystem-tooltip-docs.png" alt="Tooltip documentation" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <p class="case-hero__eyebrow" style="text-align:center;">Tele2 Design system</p>
+    <h2 class="case-section__block-title">Implementing a new scale token system</h2>
+    <h3>Project description</h3>
+    <p>Tele2 updated their sizing scale to a more universal token system. Rather than component-specific scale values, the new system introduced universal values shared across components. I was tasked with replacing all old scale values across every component — around 60 in total — before the old structure was phased out.</p>
+
+    <div class="case-split">
+      <h4 class="case-split__label">Implementation</h4>
+      <div class="case-split__content">
+        <p>I updated all components and ensured they were correctly mapped to the new token system. Beyond future-proofing the system, the new scale is more intuitive to work with — clearer naming makes it easier to pick the right value with fewer exceptions. Working through each component manually gave me a deeper understanding of how tokens are structured and how they connect across a design system.</p>
+        <img src="images/tele2-designsystem-scale-tokens.png" alt="Scale token system" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-section">
+  <div class="case-section__inner">
+    <p class="case-hero__eyebrow" style="text-align:center;">Tele2 Design system</p>
+    <h2 class="case-section__block-title">Updating button component</h2>
+    <h3>Project description</h3>
+    <p>The button component needed an update — requests had come in from multiple directions. More flexible variants were needed across all brands and themes, and the button states such as hover and pressed had to be reworked to meet accessibility requirements.</p>
+
+    <div class="case-split">
+      <h4 class="case-split__label">Implementation</h4>
+      <div class="case-split__content">
+        <p>I documented the button component in Figma across all brands, themes, states, and styles. I checked each variant against WCAG 2.1 contrast requirements and adjusted token values where contrast fell short. I also added new color tokens for the missing states. Once complete, the updated component was added directly to the active design system, ready to be used across products.</p>
+        <img src="images/tele2-designsystem-buttons.png" alt="Button component variants" />
+        <img src="images/tele2-designsystem-contrast-check.png" alt="Button contrast check" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-section case-section--alt">
+  <div class="case-section__inner">
+    <h2>Learnings</h2>
+    <p>Working hands-on with the design system gave me a solid understanding of how tokens function in practice — as the foundation that makes a white label multi-brand system possible, enabling consistency across brands while still allowing flexibility.</p>
+    <p>The work also highlighted how a shared component library with defined tokens makes accessibility scalable — when it's built in at the token level, it flows through every product automatically rather than being solved case by case.</p>
+    <p>Finally, it reinforced how important it is to plan the token structure thoroughly from the start — decisions made early have a significant impact on scalability down the line.</p>
+  </div>
+</section>
+
+<nav class="case-nav">
+  <a href="tele2-broadband.html">← Previous case</a>
+  <a href="tele2.html">Back to Tele2</a>
+</nav>
+
+<section class="contact" id="contact">
+  <div class="marquee">
+    <div class="marquee__track">
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+      <span>LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;LET'S GET IN TOUCH! &nbsp;</span>
+    </div>
+  </div>
+  <div class="contact__details">
+    <ul class="contact__list">
+      <li><a href="mailto:andreas.tjernstrom@hotmail.com">andreas.tjernstrom@hotmail.com</a></li>
+      <li><a href="tel:+46700028152">+46 70 002 81 52</a></li>
+    </ul>
+    <a class="social" href="https://www.linkedin.com/in/andreastjernstrom" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  © <span id="year"></span> Andreas Tjernström
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
