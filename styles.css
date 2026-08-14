@@ -84,10 +84,6 @@ img {
   font-size: 1.145rem;
 }
 
-.nav__close-item {
-  display: none;
-}
-
 .nav__links a {
   padding-bottom: 4px;
   border-bottom: 1px solid transparent;
@@ -101,6 +97,11 @@ img {
 
 .nav__toggle {
   display: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: 0;
   cursor: pointer;
@@ -113,15 +114,20 @@ img {
   height: 2px;
   background: var(--ink);
   margin: 5px 0;
-  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.nav__toggle[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+.nav__toggle-close {
+  display: none;
+  position: absolute;
+  color: var(--ink);
 }
 
-.nav__toggle[aria-expanded="true"] span:nth-child(2) {
-  transform: translateY(-7px) rotate(-45deg);
+.nav__toggle[aria-expanded="true"] span {
+  display: none;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-close {
+  display: block;
 }
 
 html.nav-open,
@@ -389,31 +395,8 @@ html.nav-open body {
     transform: translateY(0);
   }
 
-  .nav__close-item {
-    display: block;
-    position: absolute;
-    top: 28px;
-    right: var(--pad);
-    list-style: none;
-  }
-
-  .nav__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: 0;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: var(--ink);
-    cursor: pointer;
-    padding: 0;
-  }
-
   .nav__toggle {
-    display: block;
+    display: flex;
   }
 
   .portfolio__grid {

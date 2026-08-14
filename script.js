@@ -1,7 +1,6 @@
 // Mobile nav toggle
 const toggle = document.querySelector('.nav__toggle');
 const links = document.querySelector('.nav__links');
-const closeBtn = document.querySelector('.nav__close');
 
 let lockedScrollY = 0;
 
@@ -38,12 +37,6 @@ if (toggle && links) {
     const isOpen = !links.classList.contains('is-open');
     setMenuOpen(isOpen);
   });
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      setMenuOpen(false);
-    });
-  }
 
   links.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
