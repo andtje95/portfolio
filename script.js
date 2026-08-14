@@ -1,11 +1,36 @@
 // Mobile nav toggle
 const toggle = document.querySelector('.nav__toggle');
 const links = document.querySelector('.nav__links');
+const closeBtn = document.querySelector('.nav__close');
+
+let lockedScrollY = 0;
+
+const lockScroll = () => {
+  lockedScrollY = window.scrollY;
+  document.documentElement.classList.add('nav-open');
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${lockedScrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+};
+
+const unlockScroll = () => {
+  document.documentElement.classList.remove('nav-open');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  window.scrollTo(0, lockedScrollY);
+};
 
 const setMenuOpen = (open) => {
   links.classList.toggle('is-open', open);
   toggle.setAttribute('aria-expanded', String(open));
-  document.documentElement.classList.toggle('nav-open', open);
+  if (open) {
+    lockScroll();
+  } else {
+    unlockScroll();
+  }
 };
 
 if (toggle && links) {
@@ -13,6 +38,12 @@ if (toggle && links) {
     const isOpen = !links.classList.contains('is-open');
     setMenuOpen(isOpen);
   });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      setMenuOpen(false);
+    });
+  }
 
   links.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {

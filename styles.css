@@ -84,6 +84,10 @@ img {
   font-size: 1.145rem;
 }
 
+.nav__close-item {
+  display: none;
+}
+
 .nav__links a {
   padding-bottom: 4px;
   border-bottom: 1px solid transparent;
@@ -125,6 +129,7 @@ html.nav-open body {
   overflow: hidden;
   height: 100%;
   overscroll-behavior: none;
+  width: 100%;
 }
 
 /* ---------- Hero ---------- */
@@ -369,7 +374,7 @@ html.nav-open body {
 @media (max-width: 720px) {
   .nav__links {
     position: fixed;
-    inset: var(--nav-h) 0 0 0;
+    inset: 0;
     background: var(--cream);
     flex-direction: column;
     padding: 32px var(--pad);
@@ -377,11 +382,34 @@ html.nav-open body {
     font-size: 1.5rem;
     transform: translateY(-110%);
     transition: transform 0.3s ease;
-    z-index: 49;
+    z-index: 60;
   }
 
   .nav__links.is-open {
     transform: translateY(0);
+  }
+
+  .nav__close-item {
+    display: block;
+    position: absolute;
+    top: 28px;
+    right: var(--pad);
+    list-style: none;
+  }
+
+  .nav__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0;
   }
 
   .nav__toggle {
