@@ -293,13 +293,13 @@ img {
 }
 
 .contact__list li {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--ink);
   padding: 18px 0;
   font-size: 1.58rem;
 }
 
 .contact__list li:last-child {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--ink);
 }
 
 .contact__list a {
@@ -391,6 +391,10 @@ img {
 
   .contact__list {
     width: 100%;
+  }
+
+  .contact__list li {
+    font-size: 1.05rem;
   }
 
   .social {
