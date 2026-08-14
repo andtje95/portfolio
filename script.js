@@ -2,16 +2,21 @@
 const toggle = document.querySelector('.nav__toggle');
 const links = document.querySelector('.nav__links');
 
+const setMenuOpen = (open) => {
+  links.classList.toggle('is-open', open);
+  toggle.setAttribute('aria-expanded', String(open));
+  document.documentElement.classList.toggle('nav-open', open);
+};
+
 if (toggle && links) {
   toggle.addEventListener('click', () => {
-    const isOpen = links.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
+    const isOpen = !links.classList.contains('is-open');
+    setMenuOpen(isOpen);
   });
 
   links.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      links.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
+      setMenuOpen(false);
     });
   });
 }
@@ -29,6 +34,11 @@ if (nav) {
   let ticking = false;
 
   const updateNav = () => {
+    if (links && links.classList.contains('is-open')) {
+      ticking = false;
+      return;
+    }
+
     const currentScrollY = window.scrollY;
 
     if (currentScrollY <= 0) {

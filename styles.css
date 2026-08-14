@@ -109,6 +109,22 @@ img {
   height: 2px;
   background: var(--ink);
   margin: 5px 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(2) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+html.nav-open,
+html.nav-open body {
+  overflow: hidden;
+  height: 100%;
+  overscroll-behavior: none;
 }
 
 /* ---------- Hero ---------- */
@@ -361,6 +377,7 @@ img {
     font-size: 1.5rem;
     transform: translateY(-110%);
     transition: transform 0.3s ease;
+    z-index: 49;
   }
 
   .nav__links.is-open {
