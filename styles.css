@@ -62,11 +62,11 @@ img {
   height: var(--nav-h);
   padding: 0 var(--pad);
   background: var(--cream);
-  transition: transform 0.3s ease;
+  transition: margin-top 0.3s ease;
 }
 
 .nav--hidden {
-  transform: translateY(-100%);
+  margin-top: calc(-1 * var(--nav-h));
 }
 
 .nav__logo {
@@ -380,7 +380,7 @@ html.nav-open body {
 @media (max-width: 720px) {
   .nav__links {
     position: fixed;
-    inset: 0;
+    inset: var(--nav-h) 0 0 0;
     background: var(--cream);
     flex-direction: column;
     padding: 32px var(--pad);
@@ -388,7 +388,7 @@ html.nav-open body {
     font-size: 1.5rem;
     transform: translateY(-110%);
     transition: transform 0.3s ease;
-    z-index: 60;
+    z-index: 40;
   }
 
   .nav__links.is-open {
@@ -397,6 +397,7 @@ html.nav-open body {
 
   .nav__toggle {
     display: flex;
+    flex-direction: column;
   }
 
   .portfolio__grid {

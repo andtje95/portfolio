@@ -26,6 +26,7 @@ const setMenuOpen = (open) => {
   links.classList.toggle('is-open', open);
   toggle.setAttribute('aria-expanded', String(open));
   if (open) {
+    nav.classList.remove('nav--hidden');
     lockScroll();
   } else {
     unlockScroll();
