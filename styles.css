@@ -691,6 +691,7 @@ html.nav-open body {
 .case-split__content > video {
   display: block;
   width: 100%;
+  max-width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 20px;
