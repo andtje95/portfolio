@@ -14,7 +14,7 @@
   --font: "Urbanist", sans-serif;
 
   --nav-h: 88px;
-  --container: 1728px;
+  --container: 1200px;
   --pad: clamp(24px, 5vw, 64px);
 }
 
@@ -56,16 +56,13 @@ img {
   position: sticky;
   top: 0;
   z-index: 50;
-  height: var(--nav-h);
-  background: var(--cream);
-  transition: margin-top 0.3s ease;
-}
-
-.nav > .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: var(--nav-h);
+  padding: 0 var(--pad);
+  background: var(--cream);
+  transition: margin-top 0.3s ease;
 }
 
 .nav--hidden {
@@ -145,7 +142,7 @@ html.nav-open body {
 
 .hero {
   background: var(--cream);
-  padding: 96px 0 120px;
+  padding: 96px var(--pad) 120px;
   text-align: center;
 }
 
@@ -192,7 +189,7 @@ html.nav-open body {
 
 .portfolio {
   background: var(--white);
-  padding: 96px 0;
+  padding: 96px var(--pad);
 }
 
 .portfolio h2 {
@@ -235,7 +232,7 @@ html.nav-open body {
 /* ---------- About page ---------- */
 
 .about {
-  padding: 80px 0 120px;
+  padding: 80px var(--pad) 120px;
   background: var(--cream);
 }
 
@@ -312,9 +309,6 @@ html.nav-open body {
   gap: 32px;
   padding: 0 var(--pad);
   flex-wrap: wrap;
-  max-width: var(--container);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .contact__list {
@@ -444,7 +438,7 @@ html.nav-open body {
 /* --- Case index hero (Tele2 / Fenix outdoor) --- */
 
 .case-index-hero {
-  padding: 96px 0 72px;
+  padding: 96px var(--pad) 72px;
   text-align: center;
   color: var(--paper);
 }
@@ -499,7 +493,7 @@ html.nav-open body {
 /* --- Sub-case grid (list of cases inside Tele2 / Fenix) --- */
 
 .subcases {
-  padding: 88px 0 112px;
+  padding: 88px var(--pad) 112px;
   background: var(--white);
   text-align: center;
 }
@@ -550,7 +544,7 @@ html.nav-open body {
 
 .case-hero {
   background: var(--paper);
-  padding: 88px 0 72px;
+  padding: 88px var(--pad) 72px;
 }
 
 .case-hero__eyebrow {
@@ -592,8 +586,6 @@ html.nav-open body {
 
 .case-image-full {
   width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
   line-height: 0;
 }
 
@@ -612,8 +604,8 @@ html.nav-open body {
 }
 
 .case-section__inner {
-  max-width: var(--container);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 /* Standalone text (no left-hand label) still doesn't span the full width —

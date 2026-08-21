@@ -51,10 +51,12 @@ enligt listan nedan — då stämmer sökvägarna i HTML-koden automatiskt.
 | Experience map ("Upplevelsekarta") | `aware-experience-map.png` |
 | Progression seeker-behaviour ("Progressionssökaren") | `aware-progression-seeker.png` |
 | Lösning 1 — My journey ("My plan före/efter") | `aware-solution-1.png` |
-| Lösning 2 — Clarifying live sessions | `aware-solution-2.png` |
+| Lösning 2 — Clarifying live sessions (bild 1 av 2) | `aware-solution-2a.png` |
+| Lösning 2 — Clarifying live sessions (bild 2 av 2) | `aware-solution-2b.png` |
 | Lösning 3 — Instructional video | `aware-solution-3.png` |
 | Lösning 4 — How it works-ikon | `aware-solution-4.png` |
-| Lösning 5 — Making evidence visible | `aware-solution-5.png` |
+| Lösning 5 — Making evidence visible (bild 1 av 2) | `aware-solution-5a.png` |
+| Lösning 5 — Making evidence visible (bild 2 av 2) | `aware-solution-5b.png` |
 | Result-bild 1 | `aware-result-1.png` |
 | Result-bild 2 ("Resultat 22") | `aware-result-2.png` |
 
