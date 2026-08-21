@@ -85,3 +85,33 @@ if (nav) {
     }
   });
 }
+
+// Accordion toggles (AWARE Solution items)
+document.querySelectorAll('.accordion__toggle').forEach((btn) => {
+  const panel = btn.previousElementSibling;
+  if (!panel) return;
+
+  const openPanel = () => {
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+  };
+
+  if (btn.getAttribute('aria-expanded') === 'true') {
+    openPanel();
+  }
+
+  btn.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    if (isOpen) {
+      panel.style.maxHeight = '0px';
+    } else {
+      openPanel();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (btn.getAttribute('aria-expanded') === 'true') {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  });
+});
