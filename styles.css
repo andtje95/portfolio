@@ -688,6 +688,29 @@ html.nav-open body {
   margin-bottom: 0;
 }
 
+.image-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 0 0 20px;
+}
+
+.image-pair:last-child {
+  margin-bottom: 0;
+}
+
+.image-pair img {
+  width: 100%;
+  border-radius: 20px;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .image-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Tele2 Design system has repeated sub-project blocks, each with its own
    full-size H2 title (unlike the single-title compact case pages) */
 .case-hero--compact ~ .case-section h2.case-section__block-title {
