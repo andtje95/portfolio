@@ -88,7 +88,7 @@ if (nav) {
 
 // Accordion toggles (AWARE Solution items)
 document.querySelectorAll('.accordion__toggle').forEach((btn) => {
-  const panel = btn.nextElementSibling;
+  const panel = btn.previousElementSibling;
   if (!panel) return;
 
   const openPanel = () => {
