@@ -8,6 +8,7 @@
   --off-white: #f7f4f1;
   --ink: #1c1c1c;
   --black: #000000;
+  --hero-gradient: linear-gradient(90deg, #feffe2 0%, #fff6c4 50%, #ffe9a3 100%);
   --paper: #fafafa;
   --line: rgba(28, 28, 28, 0.25);
 
@@ -186,11 +187,35 @@ html.nav-open body {
   transform: translateY(0);
 }
 
+.hero .reveal-char {
+  background-image: var(--hero-gradient);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: heroGradientShift 6s linear infinite;
+}
+
+@keyframes heroGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-char {
     transition: none;
     opacity: 1;
     transform: none;
+  }
+
+  .hero .reveal-char {
+    animation: none;
+    background-position: 50% 50%;
   }
 }
 

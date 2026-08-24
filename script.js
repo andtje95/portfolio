@@ -154,6 +154,11 @@ function revealText(el, startDelay, charDelay) {
 
   el.appendChild(wrapper);
 
+  const gradientDuration = 6; // seconds — must match the CSS animation duration
+  chars.forEach((span, i) => {
+    span.style.animationDelay = `-${(i / chars.length) * gradientDuration}s`;
+  });
+
   chars.forEach((span, i) => {
     setTimeout(() => {
       span.classList.add('is-visible');
