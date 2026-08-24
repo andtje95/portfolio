@@ -170,3 +170,75 @@ if (heroHeading || heroSubtitle) {
   const headingDone = revealText(heroHeading, 0, 22);
   revealText(heroSubtitle, headingDone + 150, 14);
 }
+
+// Hero button: black dot bounces in from the right, then expands into the
+// full button. Finishes well before the text reveal above completes.
+const heroBtn = document.querySelector('.hero .btn--intro');
+
+if (heroBtn) {
+  const label = heroBtn.querySelector('.btn__label');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    heroBtn.classList.remove('btn--intro');
+  } else {
+    // Measure the button's natural expanded size via an invisible clone,
+    // so the animation works regardless of the label text/font used.
+    const clone = heroBtn.cloneNode(true);
+    clone.classList.remove('btn--intro');
+    clone.style.position = 'absolute';
+    clone.style.visibility = 'hidden';
+    clone.style.pointerEvents = 'none';
+    document.body.appendChild(clone);
+    const naturalWidth = clone.offsetWidth;
+    const naturalHeight = clone.offsetHeight;
+    document.body.removeChild(clone);
+
+    const bounceIn = heroBtn.animate(
+      [
+        { transform: 'translateX(300px)' },
+        { transform: 'translateX(-18px)' },
+        { transform: 'translateX(8px)' },
+        { transform: 'translateX(0)' },
+      ],
+      { duration: 550, easing: 'ease-out', fill: 'forwards' }
+    );
+
+    bounceIn.onfinish = () => {
+      const expand = heroBtn.animate(
+        [
+          {
+            width: '20px',
+            height: '20px',
+            paddingLeft: '0px',
+            paddingRight: '0px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+          },
+          {
+            width: naturalWidth + 'px',
+            height: naturalHeight + 'px',
+            paddingLeft: '32px',
+            paddingRight: '32px',
+            paddingTop: '20px',
+            paddingBottom: '20px',
+          },
+        ],
+        { duration: 400, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }
+      );
+
+      expand.onfinish = () => {
+        heroBtn.classList.remove('btn--intro');
+        heroBtn.style.width = '';
+        heroBtn.style.height = '';
+        heroBtn.style.padding = '';
+        heroBtn.style.overflow = '';
+        heroBtn.style.transform = '';
+        if (label) {
+          label.style.transition = 'opacity 0.25s ease';
+          label.style.opacity = '1';
+        }
+      };
+    };
+  }
+}
