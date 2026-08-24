@@ -187,6 +187,9 @@ html.nav-open body {
   transform: translateY(0);
 }
 
+/* Gradient text disabled for now — plain white text instead.
+   To re-enable, uncomment this rule (uses --hero-gradient + the
+   heroGradientShift keyframes below, both still defined).
 .hero .reveal-char {
   background-image: var(--hero-gradient);
   background-attachment: fixed;
@@ -197,6 +200,7 @@ html.nav-open body {
   -webkit-text-fill-color: transparent;
   animation: heroGradientShift 16s ease-in-out infinite;
 }
+*/
 
 @keyframes heroGradientShift {
   0%,
