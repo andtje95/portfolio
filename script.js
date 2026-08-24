@@ -115,3 +115,40 @@ document.querySelectorAll('.accordion__toggle').forEach((btn) => {
     }
   });
 });
+
+// Soft letter-by-letter reveal for the hero text (homepage)
+function revealText(el, startDelay, charDelay) {
+  if (!el) return 0;
+  const text = el.textContent;
+  el.setAttribute('aria-label', text);
+  el.textContent = '';
+
+  const wrapper = document.createElement('span');
+  wrapper.setAttribute('aria-hidden', 'true');
+
+  const chars = [...text].map((ch) => {
+    const span = document.createElement('span');
+    span.className = 'reveal-char';
+    span.textContent = ch;
+    wrapper.appendChild(span);
+    return span;
+  });
+
+  el.appendChild(wrapper);
+
+  chars.forEach((span, i) => {
+    setTimeout(() => {
+      span.classList.add('is-visible');
+    }, startDelay + i * charDelay);
+  });
+
+  return startDelay + chars.length * charDelay;
+}
+
+const heroHeading = document.querySelector('.hero h1');
+const heroSubtitle = document.querySelector('.hero p');
+
+if (heroHeading || heroSubtitle) {
+  const headingDone = revealText(heroHeading, 0, 22);
+  revealText(heroSubtitle, headingDone + 150, 14);
+}
