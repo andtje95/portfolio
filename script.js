@@ -171,83 +171,79 @@ if (heroHeading || heroSubtitle) {
   revealText(heroSubtitle, headingDone + 150, 14);
 }
 
-// Hero button: black dot bounces in from the right, then expands into the
-// full button. Finishes well before the text reveal above completes.
-const heroBtn = document.querySelector('.hero .btn--intro');
+// Hero shockwave: every 10s, an invisible circular wave sweeps in from the
+// right and briefly warps the hero text as it passes through each letter.
+(function initHeroShockwave() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
 
-if (heroBtn) {
-  const label = heroBtn.querySelector('.btn__label');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
 
-  if (prefersReducedMotion) {
-    heroBtn.classList.remove('btn--intro');
-  } else {
-    // Measure the button's natural expanded size via an invisible clone,
-    // so the animation works regardless of the label text/font used.
-    const clone = heroBtn.cloneNode(true);
-    clone.classList.remove('btn--intro');
-    clone.style.position = 'absolute';
-    clone.style.visibility = 'hidden';
-    clone.style.pointerEvents = 'none';
-    document.body.appendChild(clone);
-    const naturalWidth = clone.offsetWidth;
-    const naturalHeight = clone.offsetHeight;
-    document.body.removeChild(clone);
+  let warmedUp = false;
 
-    const fall = 'cubic-bezier(0.5, 0, 1, 1)'; // accelerates, like gravity pulling it down
-    const rise = 'cubic-bezier(0, 0, 0.5, 1)'; // decelerates, like gravity slowing the bounce
+  function runWave() {
+    const chars = Array.from(hero.querySelectorAll('.reveal-char'));
+    if (!chars.length) return;
 
-    const bounceIn = heroBtn.animate(
-      [
-        { transform: 'translate(300px, -60px)', easing: fall }, // falls in from upper right
-        { transform: 'translate(250px, 0px)', easing: rise }, // 1st landing
-        { transform: 'translate(210px, -30px)', easing: fall },
-        { transform: 'translate(170px, 0px)', easing: rise }, // 2nd landing
-        { transform: 'translate(140px, -14px)', easing: fall },
-        { transform: 'translate(110px, 0px)', easing: rise }, // 3rd landing
-        { transform: 'translate(90px, -6px)', easing: fall },
-        { transform: 'translate(60px, 0px)', easing: rise }, // 4th landing
-        { transform: 'translate(30px, -2px)', easing: fall },
-        { transform: 'translate(0px, 0px)' }, // settles at rest
-      ],
-      { duration: 900, fill: 'forwards' }
-    );
+    // Give each character a fast, direct-tracking transition (instead of
+    // the slower one used for the initial letter-by-letter reveal) so the
+    // wave feels snappy rather than laggy.
+    if (!warmedUp) {
+      chars.forEach((el) => {
+        el.style.transition = 'transform 0.08s ease-out';
+      });
+      warmedUp = true;
+    }
 
-    bounceIn.onfinish = () => {
-      const expand = heroBtn.animate(
-        [
-          {
-            width: '20px',
-            height: '20px',
-            paddingLeft: '0px',
-            paddingRight: '0px',
-            paddingTop: '0px',
-            paddingBottom: '0px',
-          },
-          {
-            width: naturalWidth + 'px',
-            height: naturalHeight + 'px',
-            paddingLeft: '32px',
-            paddingRight: '32px',
-            paddingTop: '20px',
-            paddingBottom: '20px',
-          },
-        ],
-        { duration: 400, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }
-      );
+    const heroRect = hero.getBoundingClientRect();
+    const originX = heroRect.right + 60;
+    const originY = heroRect.top + heroRect.height / 2;
 
-      expand.onfinish = () => {
-        heroBtn.classList.remove('btn--intro');
-        heroBtn.style.width = '';
-        heroBtn.style.height = '';
-        heroBtn.style.padding = '';
-        heroBtn.style.overflow = '';
-        heroBtn.style.transform = '';
-        if (label) {
-          label.style.transition = 'opacity 0.25s ease';
-          label.style.opacity = '1';
+    const charData = chars.map((el) => {
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      return { el, dist: Math.hypot(cx - originX, cy - originY) };
+    });
+
+    const maxDist = Math.max(...charData.map((c) => c.dist)) + 100;
+    const bandWidth = 70;
+    const duration = 1300;
+    const startTime = performance.now();
+
+    function frame(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const radius = progress * maxDist;
+
+      charData.forEach(({ el, dist }) => {
+        const diff = Math.abs(dist - radius);
+        if (diff < bandWidth) {
+          const intensity = 1 - diff / bandWidth;
+          const scale = 1 + 0.35 * intensity;
+          const skew = -10 * intensity;
+          const lift = -6 * intensity;
+          el.style.transform = `translateY(${lift}px) scale(${scale}) skewX(${skew}deg)`;
+        } else {
+          el.style.transform = '';
         }
-      };
-    };
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        charData.forEach(({ el }) => {
+          el.style.transform = '';
+        });
+      }
+    }
+
+    requestAnimationFrame(frame);
   }
-}
+
+  // First wave shortly after the intro text has finished typing out,
+  // then repeat every 10 seconds.
+  setTimeout(runWave, 3000);
+  setInterval(runWave, 10000);
+})();
