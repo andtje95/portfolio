@@ -166,8 +166,23 @@ html.nav-open body {
 }
 
 .hero .btn {
-  background: var(--paper);
-  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  padding: 16px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+@media (max-width: 720px) {
+  .hero .btn {
+    font-size: 1.25rem;
+  }
 }
 
 .reveal-word {
