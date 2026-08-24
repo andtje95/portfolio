@@ -210,7 +210,7 @@ html.nav-open body {
   height: 20px;
   padding: 0;
   overflow: hidden;
-  transform: translateX(300px);
+  transform: translate(300px, -60px);
 }
 
 .btn--intro .btn__label {

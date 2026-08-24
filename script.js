@@ -194,14 +194,23 @@ if (heroBtn) {
     const naturalHeight = clone.offsetHeight;
     document.body.removeChild(clone);
 
+    const fall = 'cubic-bezier(0.5, 0, 1, 1)'; // accelerates, like gravity pulling it down
+    const rise = 'cubic-bezier(0, 0, 0.5, 1)'; // decelerates, like gravity slowing the bounce
+
     const bounceIn = heroBtn.animate(
       [
-        { transform: 'translateX(300px)' },
-        { transform: 'translateX(-18px)' },
-        { transform: 'translateX(8px)' },
-        { transform: 'translateX(0)' },
+        { transform: 'translate(300px, -60px)', easing: fall }, // falls in from upper right
+        { transform: 'translate(250px, 0px)', easing: rise }, // 1st landing
+        { transform: 'translate(210px, -30px)', easing: fall },
+        { transform: 'translate(170px, 0px)', easing: rise }, // 2nd landing
+        { transform: 'translate(140px, -14px)', easing: fall },
+        { transform: 'translate(110px, 0px)', easing: rise }, // 3rd landing
+        { transform: 'translate(90px, -6px)', easing: fall },
+        { transform: 'translate(60px, 0px)', easing: rise }, // 4th landing
+        { transform: 'translate(30px, -2px)', easing: fall },
+        { transform: 'translate(0px, 0px)' }, // settles at rest
       ],
-      { duration: 550, easing: 'ease-out', fill: 'forwards' }
+      { duration: 900, fill: 'forwards' }
     );
 
     bounceIn.onfinish = () => {
