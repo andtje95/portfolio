@@ -8,7 +8,6 @@
   --off-white: #f7f4f1;
   --ink: #1c1c1c;
   --black: #000000;
-  --hero-gradient: linear-gradient(90deg, #A3AAE5 0%, #7FC4C0 50%, #1FC5A8 100%);
   --paper: #fafafa;
   --line: rgba(28, 28, 28, 0.25);
 
@@ -166,12 +165,20 @@ html.nav-open body {
 }
 
 .hero .btn {
-  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0.1) 100%),
+    rgba(255, 255, 255, 0.06);
   color: var(--paper);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3px) saturate(1.5);
+  -webkit-backdrop-filter: blur(3px) saturate(1.5);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    inset 1px 0 0 rgba(120, 180, 255, 0.1),
+    inset -1px 0 0 rgba(255, 140, 170, 0.1);
   padding: 16px;
   font-size: 1.5rem;
   font-weight: 500;
@@ -202,28 +209,36 @@ html.nav-open body {
   transform: translateY(0);
 }
 
-/* Gradient text disabled for now — plain white text instead.
-   To re-enable, uncomment this rule (uses --hero-gradient + the
-   heroGradientShift keyframes below, both still defined).
-.hero .reveal-char {
-  background-image: var(--hero-gradient);
-  background-attachment: fixed;
-  background-size: 200% 200%;
+/* Hero text: static white-to-yellow gradient (left to right), with an
+   organic pulsing yellow glow breathing from the right edge. */
+.hero h1,
+.hero p {
+  background-image:
+    radial-gradient(ellipse at 100% 50%, rgba(254, 255, 226, 0.95) 0%, rgba(254, 255, 226, 0) 65%),
+    linear-gradient(90deg, #ffffff 0%, var(--cream) 100%);
+  background-repeat: no-repeat;
+  background-position: 100% 50%, 0 0;
+  background-size: 38% 170%, 100% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  animation: heroGradientShift 16s ease-in-out infinite;
+  animation: heroYellowPulse 5s ease-in-out infinite;
 }
-*/
 
-@keyframes heroGradientShift {
+@keyframes heroYellowPulse {
   0%,
   100% {
-    background-position: 0% 50%;
+    background-size: 32% 150%, 100% 100%;
   }
-  50% {
-    background-position: 100% 50%;
+  35% {
+    background-size: 52% 210%, 100% 100%;
+  }
+  62% {
+    background-size: 40% 165%, 100% 100%;
+  }
+  85% {
+    background-size: 48% 190%, 100% 100%;
   }
 }
 
@@ -234,9 +249,10 @@ html.nav-open body {
     transform: none;
   }
 
-  .hero .reveal-char {
+  .hero h1,
+  .hero p {
     animation: none;
-    background-position: 50% 50%;
+    background-size: 40% 170%, 100% 100%;
   }
 }
 
