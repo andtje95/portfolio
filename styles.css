@@ -189,20 +189,22 @@ html.nav-open body {
 
 .hero .reveal-char {
   background-image: var(--hero-gradient);
-  background-size: 300% 100%;
+  background-attachment: fixed;
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  animation: heroGradientShift 6s linear infinite;
+  animation: heroGradientShift 16s ease-in-out infinite;
 }
 
 @keyframes heroGradientShift {
-  0% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
-  100% {
-    background-position: 200% 50%;
+  50% {
+    background-position: 100% 50%;
   }
 }
 
