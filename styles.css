@@ -693,7 +693,7 @@ html.nav-open body {
   width: 100%;
   max-width: 100%;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 20px;
   margin: 0 0 20px;
   background: #000;
