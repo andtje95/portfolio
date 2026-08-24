@@ -126,12 +126,30 @@ function revealText(el, startDelay, charDelay) {
   const wrapper = document.createElement('span');
   wrapper.setAttribute('aria-hidden', 'true');
 
-  const chars = [...text].map((ch) => {
-    const span = document.createElement('span');
-    span.className = 'reveal-char';
-    span.textContent = ch;
-    wrapper.appendChild(span);
-    return span;
+  const words = text.split(' ');
+  const chars = [];
+
+  words.forEach((word, wi) => {
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'reveal-word';
+
+    [...word].forEach((ch) => {
+      const span = document.createElement('span');
+      span.className = 'reveal-char';
+      span.textContent = ch;
+      wordSpan.appendChild(span);
+      chars.push(span);
+    });
+
+    wrapper.appendChild(wordSpan);
+
+    if (wi < words.length - 1) {
+      const spaceSpan = document.createElement('span');
+      spaceSpan.className = 'reveal-char';
+      spaceSpan.textContent = ' ';
+      wrapper.appendChild(spaceSpan);
+      chars.push(spaceSpan);
+    }
   });
 
   el.appendChild(wrapper);
