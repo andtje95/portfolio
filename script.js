@@ -164,9 +164,7 @@ function revealText(el, startDelay, charDelay) {
 }
 
 const heroHeading = document.querySelector('.hero h1');
-const heroSubtitle = document.querySelector('.hero p');
 
-if (heroHeading || heroSubtitle) {
-  const headingDone = revealText(heroHeading, 0, 22);
-  revealText(heroSubtitle, headingDone + 150, 14);
+if (heroHeading) {
+  revealText(heroHeading, 0, 22);
 }
