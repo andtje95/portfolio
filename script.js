@@ -46,12 +46,6 @@ if (toggle && links) {
   });
 }
 
-// Footer year
-const yearEl = document.getElementById('year');
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
-
 // Hide nav on scroll down, show on scroll up, always visible at top
 const nav = document.querySelector('.nav');
 if (nav) {

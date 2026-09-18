@@ -25,7 +25,6 @@ enligt listan nedan — då stämmer sökvägarna i HTML-koden automatiskt.
 | Broadband — lösning 2a | `tele2-broadband-solution-2a.png` |
 | Broadband — lösning 2b | `tele2-broadband-solution-2b.png` |
 | Broadband — lösning 3 | `tele2-broadband-solution-3.png` |
-| Broadband — sticky cart | `tele2-broadband-sticky-cart.png` |
 | Design system — tooltip 1 | `tele2-designsystem-tooltip-1.png` |
 | Design system — tooltip 2 | `tele2-designsystem-tooltip-2.png` |
 | Design system — tooltip dokumentation | `tele2-designsystem-tooltip-docs.png` |
@@ -53,12 +52,16 @@ enligt listan nedan — då stämmer sökvägarna i HTML-koden automatiskt.
 | Lösning 1 — My journey ("My plan före/efter") | `aware-solution-1.png` |
 | Lösning 2 — Clarifying live sessions (bild 1 av 2) | `aware-solution-2a.png` |
 | Lösning 2 — Clarifying live sessions (bild 2 av 2) | `aware-solution-2b.png` |
-| Lösning 3 — Instructional video | `aware-solution-3.png` |
+| Lösning 3 — Instructional video (bild) | `aware-solution-3.png` |
+| Lösning 3 — Instructional video (**video**, mp4-format) | `aware-solution-3-video.mp4` |
 | Lösning 4 — How it works-ikon | `aware-solution-4.png` |
-| Lösning 5 — Making evidence visible (bild 1 av 2) | `aware-solution-5a.png` |
-| Lösning 5 — Making evidence visible (bild 2 av 2) | `aware-solution-5b.png` |
-| Result-bild 1 | `aware-result-1.png` |
-| Result-bild 2 ("Resultat 22") | `aware-result-2.png` |
+| Lösning 5 — Making evidence visible | `aware-solution-5.png` |
+
+## Footer (alla sidor)
+| Motiv | Filnamn |
+|---|---|
+| "LET'S TALK"-vektorn (desktop, statisk) | `footer-letstalk.svg` |
+| "LET'S TALK"-vektorn (mobil, rullande) | `footer-letstalk-mobile.svg` |
 
 ---
 
