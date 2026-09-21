@@ -24,13 +24,14 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
 }
 
 body {
   margin: 0;
   font-family: var(--font);
   color: var(--ink);
-  background: var(--white);
+  background: #000000;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -61,18 +62,53 @@ img {
   justify-content: space-between;
   height: var(--nav-h);
   padding: 0 var(--pad);
-  background: var(--cream);
-  transition: margin-top 0.3s ease;
+  background: #000000;
+  color: #f5f5f5;
+  transition: transform 0.3s ease;
 }
 
+/* `transform`, not `margin-top`: a negative margin-top on .nav pulls
+   everything after it up too, shrinking the WHOLE document's height by
+   --nav-h every time the nav hides, and growing it back every time it
+   shows. On a long page, scrolling down near the very bottom hides the
+   nav, which shrinks the document and clamps the scroll position down —
+   which then reads as scrolling back UP relative to the previous frame,
+   which the logic below reacts to by showing the nav again, which grows
+   the document and pushes the scroll position back down (relatively),
+   which reads as scrolling down again... this feedback loop was rapidly
+   toggling .nav--hidden on and off, several times within a handful of
+   pixels of scroll, confirmed with a fine-grained scroll scan on a long
+   case-study page (the effect is negligible on a short page like the
+   homepage, where the bottom of the page is reached in one scroll step,
+   not lingered on). Because the footer scroll-reveal below reads
+   .contact's position on every scroll frame, that oscillation was
+   visible as the footer's own lock flickering in and out right as it
+   approached the bottom of the page — this was the actual bug, not
+   anything about the footer reveal logic itself. `transform` renders the
+   slide-up-and-hide purely visually, without moving or resizing anything
+   in the actual document flow, so hiding/showing the nav can no longer
+   change the document's height at all, which removes the feedback loop
+   at its root — on every page, not just the ones this happened to be
+   caught on. */
 .nav--hidden {
-  margin-top: calc(-1 * var(--nav-h));
+  transform: translateY(calc(-1 * var(--nav-h)));
 }
 
 .nav__logo {
-  font-size: 2.125rem;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -0.02em;
+}
+
+.nav__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .nav__links {
@@ -81,7 +117,7 @@ img {
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 1.145rem;
+  font-size: 1.5rem;
 }
 
 .nav__links a {
@@ -98,6 +134,7 @@ img {
 .nav__toggle {
   display: none;
   position: relative;
+  z-index: 41;
   width: 40px;
   height: 40px;
   align-items: center;
@@ -112,14 +149,16 @@ img {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--ink);
+  background: #f5f5f5;
   margin: 5px 0;
 }
 
 .nav__toggle-close {
   display: none;
   position: absolute;
-  color: var(--ink);
+  inset: 0;
+  margin: auto;
+  color: #f5f5f5;
 }
 
 .nav__toggle[aria-expanded="true"] span {
@@ -139,21 +178,27 @@ html.nav-open body {
 }
 
 /* While the mobile menu is open, the collapsed nav row (logo + close icon)
-   sits on top of the full-screen menu panel — force it to match the menu's
-   white background/black text regardless of the page's own theme (some
-   pages set a dark nav via inline style), so it reads as one seamless
-   full-screen surface instead of a mismatched colored strip at the top. */
+   sits on top of the full-screen menu panel — force it to match the Figma
+   "Heading, Device=mobile, State=opened" spec (solid black, #f5f5f5 icon)
+   regardless of the page's own theme (some pages set a lighter nav via
+   inline style), so it reads as one seamless full-screen black surface.
+   The logo/avatar is not part of the opened state, so it's hidden too. */
 html.nav-open .nav {
-  background: var(--white) !important;
-  color: var(--ink) !important;
+  background: #000000 !important;
+  color: #f5f5f5 !important;
+  justify-content: flex-end !important;
+}
+
+html.nav-open .nav__logo {
+  display: none !important;
 }
 
 html.nav-open .nav__toggle span {
-  background: var(--ink) !important;
+  background: #f5f5f5 !important;
 }
 
 html.nav-open .nav__toggle-close {
-  color: var(--ink) !important;
+  color: #f5f5f5 !important;
 }
 
 /* ---------- Hero ---------- */
@@ -275,35 +320,43 @@ html.nav-open .nav__toggle-close {
   opacity: 0.9;
 }
 
-/* ---------- Portfolio ---------- */
+/* ---------- Portfolio / Work ---------- */
 
 .portfolio {
-  background: var(--white);
-  padding: 96px var(--pad);
+  background: #f5f5f5;
+  padding: 64px var(--pad) 128px;
 }
 
 .portfolio h2 {
-  text-align: center;
+  text-align: left;
   font-size: clamp(2rem, 4vw, 2.49rem);
   font-weight: 400;
-  margin: 0 0 56px;
+  margin: 0 0 64px;
 }
 
 .portfolio__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
 }
 
 .portfolio__card {
-  display: block;
-  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 0 0;
+  min-width: 0;
+  max-width: 512px;
+}
+
+.portfolio__card-media {
+  width: 100%;
+  aspect-ratio: 533 / 400;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
   background: var(--off-white);
 }
 
-.portfolio__card img {
+.portfolio__card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -311,19 +364,36 @@ html.nav-open .nav__toggle-close {
   transition: transform 0.3s ease;
 }
 
-.portfolio__card:hover img {
+.portfolio__card:hover .portfolio__card-media img {
   transform: scale(1.03);
 }
 
-.portfolio__card--wide {
-  grid-column: 1 / -1;
+.portfolio__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.portfolio__card-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.portfolio__card-subtitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
 }
 
 /* ---------- About page ---------- */
 
 .about {
   padding: 80px var(--pad) 120px;
-  background: var(--cream);
+  background: var(--white);
 }
 
 .about__grid {
@@ -359,28 +429,53 @@ html.nav-open .nav__toggle-close {
 /* ---------- Contact / footer marquee ---------- */
 
 .contact {
-  background: var(--cream);
-  padding: 96px 0 64px;
-  overflow: hidden;
+  background: #000000;
+  padding: 64px 0 0;
 }
 
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: 64px;
+.footer-wordmark {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 64px;
+  line-height: 0;
+  box-sizing: border-box;
 }
 
-.marquee__track {
-  display: inline-flex;
-  animation: scroll 22s linear infinite;
+.footer-wordmark__desktop {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1270 / 129;
 }
 
-.marquee__track span {
-  font-size: clamp(3rem, 10vw, 7.04rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  padding-right: 48px;
-  white-space: nowrap;
+.footer-wordmark__mobile {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .footer-wordmark__desktop {
+    display: none;
+  }
+
+  .footer-wordmark__mobile {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .footer-wordmark__track {
+    display: inline-flex;
+    align-items: center;
+    animation: scroll 15s linear infinite;
+  }
+
+  .footer-wordmark__track img {
+    height: 67px;
+    width: auto;
+    flex-shrink: 0;
+    margin-right: 32px;
+  }
 }
 
 @keyframes scroll {
@@ -392,34 +487,70 @@ html.nav-open .nav__toggle-close {
   }
 }
 
+/* NOTE: width:100% is required here, not just max-width. .contact__details
+   is a flex ITEM of .contact-page .contact (which is display:flex on the
+   contact page specifically). A flex item with horizontal auto margins
+   (margin:0 auto) has those auto margins cancel cross-axis "stretch"
+   alignment per the flexbox spec — without an explicit width, the item
+   shrinks to fit its own content instead of filling the row, which was
+   the actual cause of the contact-list/LinkedIn-icon gap looking wrong
+   (the whole row was only ~560px wide instead of the intended ~1312px). */
 .contact__details {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  padding: 0 var(--pad);
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 64px;
+  padding: 0 64px;
   flex-wrap: wrap;
 }
 
+/* flex:1 0 0 (not natural content width) is intentional: the divider
+   between email and phone is width:100% of .contact__list, and it's meant
+   to reach exactly the horizontal midpoint of the row — which only happens
+   if .contact__list occupies exactly half the row's width, matching
+   .social's equal flex:1 0 0 share below. There is deliberately no `gap`
+   on .contact__details and no padding on either side here: ANY gap or
+   padding on a flex:1 0 0 item (even just on .social) eats into that
+   item's share of the flex distribution in Chromium, which throws the
+   50/50 split off by that same amount and leaves the divider short of the
+   true midpoint (confirmed empirically, not just by spec-reading). No
+   extra spacing is actually needed — the icon already sits far from the
+   list since it's pinned to .social's own right edge via
+   justify-content:flex-end on the opposite side of a wide row. */
 .contact__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  width: calc(50vw - var(--pad));
-  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 0 0;
+  min-width: 0;
 }
 
 .contact__list li {
-  border-top: 1px solid var(--ink);
-  padding: 18px 0;
-  font-size: 1.58rem;
+  padding: 0;
 }
 
-.contact__list li:last-child {
-  border-bottom: 1px solid var(--ink);
+.contact__divider {
+  height: 1px;
+  background: #f5f5f5;
+  width: 100%;
+  padding: 0;
+}
+
+.contact__divider--mobile-only {
+  display: none;
 }
 
 .contact__list a {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  font-size: 1.5rem;
+  color: #f5f5f5;
   transition: opacity 0.2s ease;
 }
 
@@ -430,40 +561,101 @@ html.nav-open .nav__toggle-close {
 .social {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: var(--black);
-  color: var(--paper);
-  flex-shrink: 0;
+  justify-content: flex-end;
+  flex: 1 0 0;
+  min-width: 0;
 }
 
 .social svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
+  width: 44px;
+  height: 44px;
+}
+
+/* ---------- Footer scroll-reveal ----------
+   On pages other than the dedicated Contact page, script.js wraps this
+   section's existing content (contact__details + social + footer-wordmark)
+   in a .contact__pin div once the viewport is wide enough (desktop), and
+   sets --reveal-min-height so .contact reserves exactly enough extra
+   document height for the wordmark's own reveal (nothing more).
+
+   Contact details + the LinkedIn icon are completely static: they never
+   get a transform applied and never move once .contact__pin is fixed.
+   ONLY .footer-wordmark animates, via its own `transform: translateY`,
+   sliding from fully hidden (below .contact__pin) to fully visible.
+   .contact__pin itself switches from normal flow straight to
+   `position: fixed; bottom: 0` (no transform on the pin) at the exact
+   scroll position where its own natural (unpinned) bottom edge would
+   otherwise start scrolling past the viewport's bottom edge — the same
+   instant a native `position: sticky; bottom: 0` would engage, so the
+   switch is seamless (pin's rendered position doesn't jump). Because the
+   footer's own natural height is all .contact reserves before that
+   (no artificial lead spacer), there's no gap above or below the footer
+   once it's resting, and the footer is never taller than its own content.
+
+   Trade-off, by construction: since the footer (361px) is shorter than
+   most viewports, this lock point is reached while some of the previous
+   section can still be on screen above it — the previous section keeps
+   scrolling normally (not stuck) for a moment while the footer is already
+   fixed at the bottom. That's standard sticky-footer behavior. The two
+   alternatives that were tried and rejected both broke a harder
+   requirement: reserving extra document height so the lock only happens
+   once the previous section is fully gone left a large flat black gap
+   above the footer while scrolling through that reserved height; sliding
+   the whole footer (not just the wordmark) up as one piece removed the
+   gap but made the contact details move, which they must not.
+
+   .footer-wordmark deliberately stays in NORMAL FLOW inside .contact__pin
+   (only animated via `transform`, which never affects layout) rather than
+   being pulled out with position:absolute — that was tried first and
+   caused the wordmark to overlap .contact__details at full reveal, because
+   .contact__pin's own auto height then no longer reserved any space for
+   it. Keeping it in flow means .contact__pin's natural height is always
+   the FULL footer (info + gap + wordmark), exactly matching the
+   no-JS/reduced-motion fallback.
+
+   Deliberately NOT position:sticky here: Chromium (and historically Safari
+   too) does not reliably engage `position: sticky; bottom: 0` the way it
+   does for `top: 0` — confirmed by testing in isolation, it silently no-ops
+   and the element just scrolls normally. script.js instead toggles
+   .contact__pin--fixed at the exact scroll position where a sticky element
+   would have engaged, which is fully cross-browser reliable. */
+.contact--reveal {
+  min-height: var(--reveal-min-height, auto);
+}
+
+.contact--reveal .contact__pin--fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.contact--reveal .footer-wordmark {
+  will-change: transform;
 }
 
 /* ---------- Contact page hero variant ---------- */
 
-.contact-page .contact {
-  padding-top: 64px;
-  min-height: calc(100vh - var(--nav-h));
+/* Matches Figma's "Contact" frame (node 187:2670): Heading, a flexible
+   black-filled gap, then the Footer block glued to the true bottom of the
+   viewport. Using a flex body + flex:1 on the section (rather than
+   min-height:calc(100vh - var(--nav-h))) makes this robust to the nav's
+   actual rendered height instead of assuming a fixed 88px. */
+body.contact-page {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+
+.contact-page .contact {
+  flex: 1 0 auto;
+  padding-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 /* ---------- Footer ---------- */
-
-.site-footer {
-  background: var(--cream);
-  padding: 24px var(--pad) 40px;
-  text-align: center;
-  font-size: 0.85rem;
-  color: rgba(28, 28, 28, 0.6);
-}
 
 /* ---------- Responsive ---------- */
 
@@ -471,11 +663,13 @@ html.nav-open .nav__toggle-close {
   .nav__links {
     position: fixed;
     inset: 0;
-    background: var(--white);
-    color: var(--ink);
+    background: #000000;
+    color: #f5f5f5;
     flex-direction: column;
-    padding: 32px var(--pad);
-    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    gap: 31px;
     font-size: 1.5rem;
     transform: translateY(-110%);
     transition: transform 0.3s ease;
@@ -491,8 +685,39 @@ html.nav-open .nav__toggle-close {
     flex-direction: column;
   }
 
+  .nav__logo {
+    gap: 8px;
+    font-size: 1.25rem;
+  }
+
+  .nav__avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .portfolio {
+    padding: 32px var(--pad) 64px;
+  }
+
+  .portfolio h2 {
+    margin-bottom: 32px;
+  }
+
   .portfolio__grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .portfolio__card {
+    max-width: none;
+  }
+
+  .portfolio__card-title {
+    font-size: 1.5rem;
+  }
+
+  .portfolio__card-subtitle {
+    font-size: 1.25rem;
   }
 
   .about__grid {
@@ -506,18 +731,31 @@ html.nav-open .nav__toggle-close {
 
   .contact__details {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 32px;
+    padding: 0 16px;
+  }
+
+  .footer-wordmark {
+    padding: 0 16px;
   }
 
   .contact__list {
     width: 100%;
+    flex: none;
+    align-items: center;
   }
 
-  .contact__list li {
-    font-size: 1.05rem;
+  .contact__list a {
+    justify-content: center;
+  }
+
+  .contact__divider--mobile-only {
+    display: block;
   }
 
   .social {
+    flex: none;
     align-self: center;
   }
 }
@@ -701,6 +939,8 @@ html.nav-open .nav__toggle-close {
 
 .case-section {
   padding: 72px var(--pad);
+  background: var(--white);
+  color: var(--ink);
 }
 
 .case-section--alt {
@@ -1005,16 +1245,8 @@ html.nav-open .nav__toggle-close {
     max-width: 100%;
   }
 
-  .hero h1 {
-    font-size: 1.6rem;
-  }
-
-  .hero p {
-    font-size: 1.6rem;
-  }
-
   .nav__logo {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
   }
 
   .case-hero h1 {
