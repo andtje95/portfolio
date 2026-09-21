@@ -408,7 +408,6 @@ html.nav-open .nav__toggle-close {
 .contact {
   background: #000000;
   padding: 64px 0 0;
-  overflow: hidden;
 }
 
 .footer-wordmark {
@@ -465,17 +464,38 @@ html.nav-open .nav__toggle-close {
   }
 }
 
+/* NOTE: width:100% is required here, not just max-width. .contact__details
+   is a flex ITEM of .contact-page .contact (which is display:flex on the
+   contact page specifically). A flex item with horizontal auto margins
+   (margin:0 auto) has those auto margins cancel cross-axis "stretch"
+   alignment per the flexbox spec — without an explicit width, the item
+   shrinks to fit its own content instead of filling the row, which was
+   the actual cause of the contact-list/LinkedIn-icon gap looking wrong
+   (the whole row was only ~560px wide instead of the intended ~1312px). */
 .contact__details {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto 64px;
   padding: 0 64px;
   flex-wrap: wrap;
 }
 
+/* flex:1 0 0 (not natural content width) is intentional: the divider
+   between email and phone is width:100% of .contact__list, and it's meant
+   to reach exactly the horizontal midpoint of the row — which only happens
+   if .contact__list occupies exactly half the row's width, matching
+   .social's equal flex:1 0 0 share below. There is deliberately no `gap`
+   on .contact__details and no padding on either side here: ANY gap or
+   padding on a flex:1 0 0 item (even just on .social) eats into that
+   item's share of the flex distribution in Chromium, which throws the
+   50/50 split off by that same amount and leaves the divider short of the
+   true midpoint (confirmed empirically, not just by spec-reading). No
+   extra spacing is actually needed — the icon already sits far from the
+   list since it's pinned to .social's own right edge via
+   justify-content:flex-end on the opposite side of a wide row. */
 .contact__list {
   list-style: none;
   margin: 0;
@@ -526,6 +546,69 @@ html.nav-open .nav__toggle-close {
 .social svg {
   width: 44px;
   height: 44px;
+}
+
+/* ---------- Footer scroll-reveal ----------
+   On pages other than the dedicated Contact page, script.js wraps this
+   section's existing content (contact__details + social + footer-wordmark)
+   in a .contact__pin div once the viewport is wide enough (desktop), and
+   sets --reveal-min-height so .contact reserves exactly enough extra
+   document height for the wordmark's own reveal (nothing more).
+
+   Contact details + the LinkedIn icon are completely static: they never
+   get a transform applied and never move once .contact__pin is fixed.
+   ONLY .footer-wordmark animates, via its own `transform: translateY`,
+   sliding from fully hidden (below .contact__pin) to fully visible.
+   .contact__pin itself switches from normal flow straight to
+   `position: fixed; bottom: 0` (no transform on the pin) at the exact
+   scroll position where its own natural (unpinned) bottom edge would
+   otherwise start scrolling past the viewport's bottom edge — the same
+   instant a native `position: sticky; bottom: 0` would engage, so the
+   switch is seamless (pin's rendered position doesn't jump). Because the
+   footer's own natural height is all .contact reserves before that
+   (no artificial lead spacer), there's no gap above or below the footer
+   once it's resting, and the footer is never taller than its own content.
+
+   Trade-off, by construction: since the footer (361px) is shorter than
+   most viewports, this lock point is reached while some of the previous
+   section can still be on screen above it — the previous section keeps
+   scrolling normally (not stuck) for a moment while the footer is already
+   fixed at the bottom. That's standard sticky-footer behavior. The two
+   alternatives that were tried and rejected both broke a harder
+   requirement: reserving extra document height so the lock only happens
+   once the previous section is fully gone left a large flat black gap
+   above the footer while scrolling through that reserved height; sliding
+   the whole footer (not just the wordmark) up as one piece removed the
+   gap but made the contact details move, which they must not.
+
+   .footer-wordmark deliberately stays in NORMAL FLOW inside .contact__pin
+   (only animated via `transform`, which never affects layout) rather than
+   being pulled out with position:absolute — that was tried first and
+   caused the wordmark to overlap .contact__details at full reveal, because
+   .contact__pin's own auto height then no longer reserved any space for
+   it. Keeping it in flow means .contact__pin's natural height is always
+   the FULL footer (info + gap + wordmark), exactly matching the
+   no-JS/reduced-motion fallback.
+
+   Deliberately NOT position:sticky here: Chromium (and historically Safari
+   too) does not reliably engage `position: sticky; bottom: 0` the way it
+   does for `top: 0` — confirmed by testing in isolation, it silently no-ops
+   and the element just scrolls normally. script.js instead toggles
+   .contact__pin--fixed at the exact scroll position where a sticky element
+   would have engaged, which is fully cross-browser reliable. */
+.contact--reveal {
+  min-height: var(--reveal-min-height, auto);
+}
+
+.contact--reveal .contact__pin--fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.contact--reveal .footer-wordmark {
+  will-change: transform;
 }
 
 /* ---------- Contact page hero variant ---------- */
@@ -626,6 +709,7 @@ body.contact-page {
   .contact__details {
     flex-direction: column;
     align-items: center;
+    gap: 32px;
     padding: 0 16px;
   }
 
