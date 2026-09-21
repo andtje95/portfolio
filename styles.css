@@ -64,11 +64,34 @@ img {
   padding: 0 var(--pad);
   background: #000000;
   color: #f5f5f5;
-  transition: margin-top 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
+/* `transform`, not `margin-top`: a negative margin-top on .nav pulls
+   everything after it up too, shrinking the WHOLE document's height by
+   --nav-h every time the nav hides, and growing it back every time it
+   shows. On a long page, scrolling down near the very bottom hides the
+   nav, which shrinks the document and clamps the scroll position down —
+   which then reads as scrolling back UP relative to the previous frame,
+   which the logic below reacts to by showing the nav again, which grows
+   the document and pushes the scroll position back down (relatively),
+   which reads as scrolling down again... this feedback loop was rapidly
+   toggling .nav--hidden on and off, several times within a handful of
+   pixels of scroll, confirmed with a fine-grained scroll scan on a long
+   case-study page (the effect is negligible on a short page like the
+   homepage, where the bottom of the page is reached in one scroll step,
+   not lingered on). Because the footer scroll-reveal below reads
+   .contact's position on every scroll frame, that oscillation was
+   visible as the footer's own lock flickering in and out right as it
+   approached the bottom of the page — this was the actual bug, not
+   anything about the footer reveal logic itself. `transform` renders the
+   slide-up-and-hide purely visually, without moving or resizing anything
+   in the actual document flow, so hiding/showing the nav can no longer
+   change the document's height at all, which removes the feedback loop
+   at its root — on every page, not just the ones this happened to be
+   caught on. */
 .nav--hidden {
-  margin-top: calc(-1 * var(--nav-h));
+  transform: translateY(calc(-1 * var(--nav-h)));
 }
 
 .nav__logo {

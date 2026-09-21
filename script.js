@@ -195,6 +195,7 @@ if (heroHeading) {
   let revealDistance = 0;
   let pinBottomOffset = 0;
   let ticking = false;
+  let bodyObserver = null;
 
   // pinBottomOffset is the distance from .contact's own top edge down to
   // .contact__pin's bottom edge (i.e. the footer's own natural height,
@@ -205,7 +206,13 @@ if (heroHeading) {
   // 1:1 rate. .contact only ever reserves pinBottomOffset + revealDistance
   // of document height — the footer's own height plus the wordmark's own
   // reveal distance, nothing extra — so there's no gap above or below the
-  // footer once it's resting. Both are recomputed on setup and on resize.
+  // footer once it's resting. Recomputed on setup, on resize, and whenever
+  // the page's own height changes for any other reason (see bodyObserver
+  // below) — a value that doesn't actually change is left untouched,
+  // rather than always writing the freshly computed one, which matters
+  // because observing document.body's own size (below) means our own
+  // write here can trigger another callback; skipping a no-op write is
+  // what lets that settle in one extra pass instead of looping.
   function updateRevealDistance() {
     const wasPinned = pin.classList.contains('contact__pin--fixed');
     if (wasPinned) pin.classList.remove('contact__pin--fixed');
@@ -219,7 +226,10 @@ if (heroHeading) {
 
     if (wasPinned) pin.classList.add('contact__pin--fixed');
 
-    contact.style.setProperty('--reveal-min-height', `${pinBottomOffset + revealDistance}px`);
+    const minHeight = `${pinBottomOffset + revealDistance}px`;
+    if (contact.style.getPropertyValue('--reveal-min-height') !== minHeight) {
+      contact.style.setProperty('--reveal-min-height', minHeight);
+    }
   }
 
   function update() {
@@ -274,10 +284,38 @@ if (heroHeading) {
     pinned = false;
     updateRevealDistance();
     update();
+
+    // Case-study pages load several large, un-dimensioned images below the
+    // fold; each one shifts the whole page's height by hundreds of pixels
+    // once it finishes loading, well after this script's own setup() has
+    // already run and measured a much shorter page — confirmed directly
+    // (a real page's total height changed by ~4900px after its images
+    // loaded, while --reveal-min-height silently stayed at its original,
+    // now-wrong value). The short, image-light homepage never showed this
+    // because its few images are already reserved via `aspect-ratio` in
+    // CSS, so nothing shifts there. A ResizeObserver on document.body
+    // re-measures whenever the page's rendered height actually changes,
+    // for any reason — late images, web fonts swapping in, an accordion
+    // opening — rather than trying to special-case images specifically.
+    if ('ResizeObserver' in window) {
+      bodyObserver = new ResizeObserver(() => {
+        if (!active) return;
+        window.requestAnimationFrame(() => {
+          if (!active) return;
+          updateRevealDistance();
+          update();
+        });
+      });
+      bodyObserver.observe(document.body);
+    }
   }
 
   function teardown() {
     if (!active) return;
+    if (bodyObserver) {
+      bodyObserver.disconnect();
+      bodyObserver = null;
+    }
     pin.classList.remove('contact__pin--fixed');
     while (pin.firstChild) {
       contact.appendChild(pin.firstChild);
