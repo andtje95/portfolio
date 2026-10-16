@@ -740,9 +740,11 @@ body.contact-page {
   min-width: 120px;
 }
 
+/* Shares the Eyebrow token with .case-hero__eyebrow above (round 23):
+   20px desktop / 16px mobile. */
 .meta-grid__label {
   display: block;
-  font-size: 1rem;
+  font-size: 1.25rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   opacity: 0.65;
@@ -779,10 +781,12 @@ body.contact-page {
 .subcases {
   padding: 88px var(--pad) 112px;
   background: var(--white);
-  text-align: center;
 }
 
+/* Left-aligned to match every other section heading on the site (round 24);
+   was centered, which this section was the only one to do. */
 .subcases h2 {
+  text-align: left;
   font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 400;
   margin: 0 0 56px;
@@ -791,7 +795,10 @@ body.contact-page {
 .subcases__grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* flex-start, not center (round 24): with only 1-2 cards the row is
+     narrower than the container, and centering left it floating in the
+     middle instead of flush left like .portfolio__grid. */
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 32px;
   text-align: left;
@@ -824,6 +831,11 @@ body.contact-page {
   transform: scale(1.03);
 }
 
+/* H3 token (round 24): 32px desktop, matches Figma's Case_card component
+   (node 44:785/44:783, get_variable_defs confirms H3/Font size = 32).
+   Mobile value (24px) set in the 720px media query below, same token
+   .portfolio__card-title already uses (1.5rem) — this card was missing
+   that responsive step entirely and stayed at 32px on every width. */
 .subcase-card__title {
   font-size: 2rem;
 }
@@ -848,12 +860,18 @@ body.contact-page {
   color: rgba(250, 250, 250, 0.6);
 }
 
+/* Eyebrow token updated (round 23): 20px desktop / 16px mobile (see the
+   720px media query below), per Figma's --eyebrow/font-size variable
+   (resolved via get_variable_defs: 20 at device size 1440, 16 at 390).
+   Previously 16px at every width. The 8px margin below the eyebrow line
+   matches Figma's Text_wrapper gap (Scale/8 = 8px at both breakpoints,
+   non-responsive) — was 16px, double what Figma specifies. */
 .case-hero__eyebrow {
-  font-size: 1rem;
+  font-size: 1.25rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #7c7c7c;
-  margin: 0 0 16px;
+  margin: 0 0 8px;
 }
 
 .case-hero h1 {
@@ -875,9 +893,12 @@ body.contact-page {
   margin: 0;
 }
 
+/* 32px, not 40px: matches Figma's Case_introduction gap (Scale/32,
+   non-responsive) between the H1/meta text block and the row above it
+   (round 23). */
 .case-hero .meta-grid {
   justify-content: flex-start;
-  margin-top: 40px;
+  margin-top: 32px;
 }
 
 .case-hero .meta-grid__label {
@@ -930,11 +951,13 @@ body.contact-page {
   max-width: 67%;
 }
 
+/* 32px, not 40px: matches Figma's Text_title gap (Scale/32,
+   non-responsive) between the H2 and the body copy below it (round 23). */
 .case-section h2 {
   text-align: left;
   font-size: 2.5rem;
   font-weight: 400;
-  margin: 0 0 40px;
+  margin: 0 0 32px;
 }
 
 .case-section h3 {
@@ -1119,11 +1142,16 @@ body.contact-page {
   gap: 16px;
 }
 
+/* Text size now uses the "Help text" token (round 23) instead of Body:
+   20px desktop, 16px mobile (see the 720px media query below) — per
+   Figma's --help-text/font-size variable, resolved per breakpoint via
+   get_variable_defs (20 at device size 1440, 16 at device size 390).
+   Previously used Body's 24px at every width, non-responsive. */
 .usp-list li {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-style: italic;
   line-height: 1.4;
 }
@@ -1281,6 +1309,12 @@ body.contact-page {
     max-width: none;
   }
 
+  /* H3 token, mobile value (round 24): 24px, down from the desktop 32px
+     set above — same step .portfolio__card-title already takes. */
+  .subcase-card__title {
+    font-size: 1.5rem;
+  }
+
   .meta-grid {
     gap: 32px;
   }
@@ -1288,6 +1322,33 @@ body.contact-page {
   .case-split {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  /* Mobile spacing reconciled against Figma's mobile reference frame for
+     this page (node 376:2270, round 23) — previously these three used the
+     same padding as desktop (88/72px vertical, ~24px horizontal via
+     var(--pad)'s clamp), which was never actually reviewed against a
+     mobile-specific Figma frame until now. Figma's Case_introduction
+     block is pt-32/px-16, with a 32px gap (its own flex gap) before the
+     hero image, then pb-64 after the image before the next section —
+     split here across .case-hero's own bottom padding (the 32px gap) and
+     .case-image-full's bottom padding (the 64px trailing space), since
+     they're two separate elements in this codebase, not one wrapper. */
+  .case-hero {
+    padding: 32px 16px 32px;
+  }
+
+  .case-hero + .case-image-full {
+    padding: 0 16px 64px;
+  }
+
+  /* Figma's Text_title / Frame groups are each pt-32, px-16, with pb-64
+     only at the very end of their own colored block — which is exactly
+     what one .case-section already is in this codebase (Project
+     description, Result, The design process, and Learnings are each
+     their own .case-section), so one override reproduces all four. */
+  .case-section {
+    padding: 32px 16px 64px;
   }
 
   .case-section__inner > h2,
@@ -1314,13 +1375,34 @@ body.contact-page {
     font-size: 1.05rem;
   }
 
+  /* Eyebrow token, mobile value (round 23): 16px, down from the desktop
+     20px set above. Previously 0.95rem (~15.2px) at every width below
+     720px — close, but not the actual mobile token value. */
   .case-hero__eyebrow,
   .meta-grid__label {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .meta-grid__value {
     font-size: 1.3rem;
+  }
+
+  /* Help text token, mobile value (round 23): 16px, down from the desktop
+     20px set above. */
+  .usp-list li {
+    font-size: 1rem;
+  }
+
+  /* 32px, not 64px: Figma's mobile Image_carousel uses pt-32, not the
+     desktop "Images" component's pt-64 (round 20 only fetched the desktop
+     value; round 23 added the mobile one from node 376:2270). Placed in
+     this later media query, not the earlier one next to the base
+     .image-pair rule, because that earlier block sits BEFORE
+     .image-pair.image-pair--captioned's own unconditional desktop rule in
+     the file — same specificity, so the later unconditional rule was
+     winning at every width regardless of this query's condition. */
+  .image-pair.image-pair--captioned {
+    margin-top: 32px;
   }
 
   .case-section h2,
