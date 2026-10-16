@@ -80,11 +80,13 @@ img {
    pixels of scroll, confirmed with a fine-grained scroll scan on a long
    case-study page (the effect is negligible on a short page like the
    homepage, where the bottom of the page is reached in one scroll step,
-   not lingered on). Because the footer scroll-reveal below reads
-   .contact's position on every scroll frame, that oscillation was
-   visible as the footer's own lock flickering in and out right as it
-   approached the bottom of the page — this was the actual bug, not
-   anything about the footer reveal logic itself. `transform` renders the
+   not lingered on). Historical note: back when the footer still had a
+   JS scroll-reveal (removed in round 22 — the footer is static now, see
+   the Contact / footer marquee section below), that reveal logic read
+   .contact's position on every scroll frame, so this same oscillation
+   showed up as the footer's own lock flickering in and out right as it
+   approached the bottom of the page — confirming the nav was the actual
+   bug, not anything about the footer logic itself. `transform` renders the
    slide-up-and-hide purely visually, without moving or resizing anything
    in the actual document flow, so hiding/showing the nav can no longer
    change the document's height at all, which removes the feedback loop
@@ -121,6 +123,9 @@ img {
 }
 
 .nav__links a {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
   padding-bottom: 4px;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease;
@@ -329,7 +334,7 @@ html.nav-open .nav__toggle-close {
 
 .portfolio h2 {
   text-align: left;
-  font-size: clamp(2rem, 4vw, 2.49rem);
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 400;
   margin: 0 0 64px;
 }
@@ -337,7 +342,7 @@ html.nav-open .nav__toggle-close {
 .portfolio__grid {
   display: flex;
   align-items: flex-start;
-  gap: 48px;
+  gap: 32px;
 }
 
 .portfolio__card {
@@ -346,7 +351,7 @@ html.nav-open .nav__toggle-close {
   gap: 16px;
   flex: 1 0 0;
   min-width: 0;
-  max-width: 512px;
+  max-width: 416px;
 }
 
 .portfolio__card-media {
@@ -404,13 +409,13 @@ html.nav-open .nav__toggle-close {
 }
 
 .about h1 {
-  font-size: clamp(2rem, 4vw, 2.49rem);
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 400;
   margin: 0 0 32px;
 }
 
 .about p {
-  font-size: 1.58rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin: 0 0 24px;
 }
@@ -549,6 +554,7 @@ html.nav-open .nav__toggle-close {
   display: flex;
   align-items: center;
   height: 44px;
+  border-radius: 128px;
   font-size: 1.5rem;
   color: #f5f5f5;
   transition: opacity 0.2s ease;
@@ -569,69 +575,6 @@ html.nav-open .nav__toggle-close {
 .social svg {
   width: 44px;
   height: 44px;
-}
-
-/* ---------- Footer scroll-reveal ----------
-   On pages other than the dedicated Contact page, script.js wraps this
-   section's existing content (contact__details + social + footer-wordmark)
-   in a .contact__pin div once the viewport is wide enough (desktop), and
-   sets --reveal-min-height so .contact reserves exactly enough extra
-   document height for the wordmark's own reveal (nothing more).
-
-   Contact details + the LinkedIn icon are completely static: they never
-   get a transform applied and never move once .contact__pin is fixed.
-   ONLY .footer-wordmark animates, via its own `transform: translateY`,
-   sliding from fully hidden (below .contact__pin) to fully visible.
-   .contact__pin itself switches from normal flow straight to
-   `position: fixed; bottom: 0` (no transform on the pin) at the exact
-   scroll position where its own natural (unpinned) bottom edge would
-   otherwise start scrolling past the viewport's bottom edge — the same
-   instant a native `position: sticky; bottom: 0` would engage, so the
-   switch is seamless (pin's rendered position doesn't jump). Because the
-   footer's own natural height is all .contact reserves before that
-   (no artificial lead spacer), there's no gap above or below the footer
-   once it's resting, and the footer is never taller than its own content.
-
-   Trade-off, by construction: since the footer (361px) is shorter than
-   most viewports, this lock point is reached while some of the previous
-   section can still be on screen above it — the previous section keeps
-   scrolling normally (not stuck) for a moment while the footer is already
-   fixed at the bottom. That's standard sticky-footer behavior. The two
-   alternatives that were tried and rejected both broke a harder
-   requirement: reserving extra document height so the lock only happens
-   once the previous section is fully gone left a large flat black gap
-   above the footer while scrolling through that reserved height; sliding
-   the whole footer (not just the wordmark) up as one piece removed the
-   gap but made the contact details move, which they must not.
-
-   .footer-wordmark deliberately stays in NORMAL FLOW inside .contact__pin
-   (only animated via `transform`, which never affects layout) rather than
-   being pulled out with position:absolute — that was tried first and
-   caused the wordmark to overlap .contact__details at full reveal, because
-   .contact__pin's own auto height then no longer reserved any space for
-   it. Keeping it in flow means .contact__pin's natural height is always
-   the FULL footer (info + gap + wordmark), exactly matching the
-   no-JS/reduced-motion fallback.
-
-   Deliberately NOT position:sticky here: Chromium (and historically Safari
-   too) does not reliably engage `position: sticky; bottom: 0` the way it
-   does for `top: 0` — confirmed by testing in isolation, it silently no-ops
-   and the element just scrolls normally. script.js instead toggles
-   .contact__pin--fixed at the exact scroll position where a sticky element
-   would have engaged, which is fully cross-browser reliable. */
-.contact--reveal {
-  min-height: var(--reveal-min-height, auto);
-}
-
-.contact--reveal .contact__pin--fixed {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.contact--reveal .footer-wordmark {
-  will-change: transform;
 }
 
 /* ---------- Contact page hero variant ---------- */
@@ -799,7 +742,7 @@ body.contact-page {
 
 .meta-grid__label {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   opacity: 0.65;
@@ -807,7 +750,10 @@ body.contact-page {
 }
 
 .meta-grid__value {
-  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  font-size: 1.5rem;
 }
 
 .meta-grid__value + .meta-grid__value {
@@ -816,7 +762,16 @@ body.contact-page {
 
 .meta-grid__value a,
 .meta-grid a.meta-grid__value {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border-bottom: 1px solid currentColor;
+}
+
+.meta-grid__value .link-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 /* --- Sub-case grid (list of cases inside Tele2 / Fenix) --- */
@@ -828,14 +783,16 @@ body.contact-page {
 }
 
 .subcases h2 {
-  font-size: clamp(2rem, 4vw, 2.49rem);
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 400;
   margin: 0 0 56px;
 }
 
 .subcases__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   gap: 32px;
   text-align: left;
 }
@@ -843,12 +800,14 @@ body.contact-page {
 .subcase-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  flex: 1 0 0;
+  min-width: 0;
+  max-width: 416px;
 }
 
 .subcase-card__image {
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
+  aspect-ratio: 533 / 400;
   background: #0b0b0b;
   overflow: hidden;
 }
@@ -866,7 +825,7 @@ body.contact-page {
 }
 
 .subcase-card__title {
-  font-size: 1.33rem;
+  font-size: 2rem;
 }
 
 /* --- Case detail article (hero + alternating sections) --- */
@@ -890,7 +849,7 @@ body.contact-page {
 }
 
 .case-hero__eyebrow {
-  font-size: 1.1rem;
+  font-size: 1rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #7c7c7c;
@@ -898,7 +857,7 @@ body.contact-page {
 }
 
 .case-hero h1 {
-  font-size: 5.125rem;
+  font-size: 3rem;
   font-weight: 400;
   letter-spacing: -0.02em;
   margin: 0 0 24px;
@@ -906,11 +865,11 @@ body.contact-page {
 }
 
 .case-hero--compact h1 {
-  font-size: 3.125rem;
+  font-size: 3rem;
 }
 
 .case-hero__lede {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   line-height: 1.4;
   max-width: 67%;
   margin: 0;
@@ -935,6 +894,16 @@ body.contact-page {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* The very first case image — directly after the hero, not yet inside a
+   padded section — now follows the same horizontal padding as the text
+   above it, instead of bleeding edge-to-edge (matches the updated Figma).
+   Any later .case-image-full is already nested inside a padded
+   .case-section, so this selector leaves those alone. */
+.case-hero + .case-image-full {
+  padding: 0 var(--pad);
+  background: var(--paper);
 }
 
 .case-section {
@@ -963,19 +932,19 @@ body.contact-page {
 
 .case-section h2 {
   text-align: left;
-  font-size: 3.125rem;
+  font-size: 2.5rem;
   font-weight: 400;
   margin: 0 0 40px;
 }
 
 .case-section h3 {
-  font-size: 2.625rem;
+  font-size: 2rem;
   font-weight: 400;
   margin: 32px 0 12px;
 }
 
 .case-section p {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin: 0 0 20px;
 }
@@ -983,7 +952,7 @@ body.contact-page {
 /* On the shorter case pages (title already at H2 scale), the top-level
    section heading shifts down one level to match the original hierarchy */
 .case-hero--compact ~ .case-section h2 {
-  font-size: 2.625rem;
+  font-size: 2.5rem;
 }
 
 .case-section h4 {
@@ -1005,7 +974,7 @@ body.contact-page {
 .case-split > .case-split__label {
   margin: 0;
   max-width: none;
-  font-size: 1.75rem;
+  font-size: 2rem;
 }
 
 .case-split__content {
@@ -1013,7 +982,7 @@ body.contact-page {
 }
 
 .case-split__content > p {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin: 0 0 20px;
 }
@@ -1108,7 +1077,7 @@ body.contact-page {
 }
 
 .accordion__panel > p {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin: 20px 0 0;
 }
@@ -1140,10 +1109,89 @@ body.contact-page {
   }
 }
 
+/* USP list: icon + italic line, used in case-study "Result" sections */
+.usp-list {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.usp-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.usp-list__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 0.2em;
+}
+
+/* Captioned image pair (Before/After, etc.) — measurements per Figma's
+   "Images" component (node 326:2539): 32px gap between the two images,
+   64px top padding from the content above. Scoped to this modifier only
+   (not the base .image-pair) since aware.html's plain .image-pair uses
+   different, unrelated spacing. */
+.image-pair.image-pair--captioned {
+  gap: 32px;
+  margin: 64px 0 0;
+}
+
+.image-pair--captioned figure {
+  margin: 0;
+}
+
+.image-pair--captioned figcaption {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.image-pair.image-pair--captioned img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin: 0;
+}
+
+/* Captioned (or plain) image inside a .case-split__content block,
+   e.g. the Research/Design process images on case-study pages */
+.case-split__content figure {
+  margin: 0 0 20px;
+}
+
+.case-split__content figure:last-child {
+  margin-bottom: 0;
+}
+
+.case-split__content figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 20px;
+  margin: 0;
+}
+
+.case-split__content figure figcaption {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
 /* Tele2 Design system has repeated sub-project blocks, each with its own
    full-size H2 title (unlike the single-title compact case pages) */
 .case-hero--compact ~ .case-section h2.case-section__block-title {
-  font-size: 3.125rem;
+  font-size: 2.5rem;
 }
 
 .case-section p:last-child {
@@ -1177,7 +1225,7 @@ body.contact-page {
   counter-increment: insight;
   padding: 24px 0;
   border-top: 1px solid var(--line);
-  font-size: 1.58rem;
+  font-size: 1.5rem;
 }
 
 .insight-list li:last-child {
@@ -1196,7 +1244,7 @@ body.contact-page {
 }
 
 .bullet-list li {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin-bottom: 8px;
 }
@@ -1225,7 +1273,12 @@ body.contact-page {
 
 @media (max-width: 720px) {
   .subcases__grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .subcase-card {
+    max-width: none;
   }
 
   .meta-grid {
